@@ -1,5 +1,29 @@
-" Hello，我是PowerVim的作者，程序员Carl，欢迎关注我的微信公众号：代码随想录 
-"
+"Vundle管理工具
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+	Plugin 'VundleVim/Vundle.vim'
+	""Plugin 'ycm-core/YouCompleteMe'
+    Plugin 'camspiers/animate.vim'
+    Plugin 'camspiers/lens.vim'
+call vundle#end()
+
+" NERD
+" 窗口大小
+:let g:NERDTreeWinSize=30
+" 为剩下的唯一窗口时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q |
+" 打开文件自动关闭
+let NERDTreeQuitOnOpen=1
+
+" lens
+" 窗口最小 大小
+let g:lens#width_resize_min = 150
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""以上为DIY配置
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " 定义快捷键的前缀，即<Leader>
 let mapleader=";"
 
@@ -69,7 +93,7 @@ nmap <Leader>q :q<CR>
 " 定义快捷键
 nmap <Leader>w :w<CR>
 " 删除光标所在单词
-nmap e daw
+" nmap e daw
 " close TAB
 nmap tabc :tabc <CR>
 " go to previous table
@@ -203,7 +227,7 @@ inoremap ' ''<ESC>i
 inoremap " ""<ESC>i
 set selectmode=mouse,key
 set selection=exclusive
-set mouse=n "可视模式下使用鼠标，set mouse=a这个命令导致在vim下复制粘贴不好用
+""set mouse=n "可视模式下使用鼠标，set mouse=a这个命令导致在vim下复制粘贴不好用
 set ai "vim中复制粘贴保存格式
 set ignorecase "设置默认大小写不敏感查找
 set smartcase "如果有大小写字母，则切换到大小写敏感查找
@@ -249,8 +273,8 @@ func SetTitle()
     if &filetype == 'sh'
         call setline(1,"\#########################################################################")
         call append(line("."),   "\# File Name:    ".expand("%"))
-        call append(line(".")+1, "\# Author:       程序员Carl")
-        call append(line(".")+2, "\# mail:         programmercarl@163.com")
+        call append(line(".")+1, "\# Author:       arashi")
+        call append(line(".")+2, "\# mail:         arashi@tencent.com")
         call append(line(".")+3, "\# Created Time: ".strftime("%c"))
         call append(line(".")+4, "\#########################################################################")
         call append(line(".")+5, "\#!/bin/bash")
@@ -258,8 +282,8 @@ func SetTitle()
     else
         call setline(1, "/* ************************************************************************")
         call append(line("."),   "> File Name:     ".expand("%"))
-        call append(line(".")+1, "> Author:        程序员Carl")
-        call append(line(".")+2, "> 微信公众号:    代码随想录")
+        call append(line(".")+1, "> Author:        arashi")
+        call append(line(".")+2, "> mail:          arashi@tencent.com")
         call append(line(".")+3, "> Created Time:  ".strftime("%c"))
         call append(line(".")+4, "> Description:   ")
         call append(line(".")+5, " ************************************************************************/")
@@ -342,6 +366,7 @@ let g:syntastic_check_on_wq = 0
 autocmd BufEnter * silent! lcd %:p:h
 " 需要在哪个目录有类函数补全功能，就加载哪个目录的tags 
 " set tags+=/Users/XXX/Documents/workplace/brpc/tags
+set tags+=/data/arashi/QQMail/wwoutcontactxmq
 
 " complete with no first suggestion 
 " :set completeopt+=noinsert
@@ -436,3 +461,4 @@ function! GenMarkdownSectionNum()
   " echo lvl sect out
   echo out
 endfunc
+
