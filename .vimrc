@@ -19,10 +19,60 @@ let NERDTreeQuitOnOpen=1
 " 窗口最小 大小
 let g:lens#width_resize_min = 150
 
+"YCM
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_show_diagnostics_ui = 1    " 开启实时错误或者warning的检测
+let g:ycm_add_preview_to_completeopt = 0    " 关闭补全预览
+" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+let g:ycm_confirm_extra_conf = 0
+" 补全内容不以分割子窗口形式出现，只显示补全列表
+set completeopt-=preview
+" 补全功能在注释中同样有效
+let g:ycm_complete_in_comments=1
+" 开启 YCM 标签补全引擎
+let g:ycm_collect_identifiers_from_tags_files=1
+" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
+inoremap <leader>; <C-x><C-o>
+" 从第一个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=1
+" 禁止缓存匹配项，每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+  \             're!\[.*\]\s'],
+  \   'ocaml' : ['.', '#'],
+  \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'ruby' : ['.', '::'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
+" 错误标记
+let g:ycm_error_symbol = '✗'  "set error or warning signs
+" warning标记
+let g:ycm_warning_symbol = '⚠'
+"颜色
+"highlight YcmErrorSign       标记颜色
+"highlight YcmWarningSign ctermbg=none
+"highlight YcmErrorSection      代码中出错字段颜色
+highlight YcmWarningSection ctermbg=none
+"highlight YcmErrorLine        出错行颜色
+"highlight YcmWarningLine
+
+" VIM配置
+" 插件高度 ycm
+set pumheight=25
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ""以上为DIY配置
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " 定义快捷键的前缀，即<Leader>
 let mapleader=";"
