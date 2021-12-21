@@ -7,7 +7,7 @@ call vundle#begin()
     Plugin 'camspiers/lens.vim'
 call vundle#end()
 
-" NERD
+" NERD 文件导航
 " 窗口大小
 :let g:NERDTreeWinSize=30
 " 为剩下的唯一窗口时自动关闭
@@ -15,8 +15,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " 打开文件自动关闭
 let NERDTreeQuitOnOpen=1
 
-" lens
-" 窗口最小 大小
+" lens 窗口自动调整大小
+" 窗口最小宽度
 let g:lens#width_resize_min = 150
 
 "YCM
