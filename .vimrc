@@ -1,13 +1,14 @@
-"Vundle管理工具
+" ===================== 插件 =====================
+" Vundle管理工具
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-	Plugin 'VundleVim/Vundle.vim'
-	""Plugin 'ycm-core/YouCompleteMe'
+        Plugin 'VundleVim/Vundle.vim'
+        ""Plugin 'ycm-core/YouCompleteMe'
     Plugin 'camspiers/animate.vim'
     Plugin 'camspiers/lens.vim'
 call vundle#end()
 
-" NERD 文件导航
+" NERD
 " 窗口大小
 :let g:NERDTreeWinSize=30
 " 为剩下的唯一窗口时自动关闭
@@ -15,11 +16,25 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " 打开文件自动关闭
 let NERDTreeQuitOnOpen=1
 
-" lens 窗口自动调整大小
-" 窗口最小宽度
+" lens
+" 窗口最小 大小
 let g:lens#width_resize_min = 150
 
-"YCM
+" ===================== VIM配置 =====================
+" 插件高度 ycm
+set pumheight=25
+
+" 定义快捷键的前缀，即<Leader>
+let mapleader=";"
+
+" Resize window 15 
+" ;1 ;2 ;3 ;4
+map <Leader>1 <ESC><C-W>15-
+map <Leader>2 <ESC><C-W>15+
+map <Leader>3 <ESC><C-W>15<
+map <Leader>4 <ESC><C-W>15>
+
+" ===================== YCM =====================
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
 let g:ycm_show_diagnostics_ui = 1    " 开启实时错误或者warning的检测
 let g:ycm_add_preview_to_completeopt = 0    " 关闭补全预览
@@ -64,18 +79,11 @@ highlight YcmWarningSection ctermbg=none
 "highlight YcmErrorLine        出错行颜色
 "highlight YcmWarningLine
 
-" VIM配置
-" 插件高度 ycm
-set pumheight=25
 
+" ================================================
+" 以上为DIY配置
+" ================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""以上为DIY配置
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-" 定义快捷键的前缀，即<Leader>
-let mapleader=";"
 
 " pathogen plugin manager
 execute pathogen#infect()
@@ -157,9 +165,6 @@ nmap <Leader>gr <C-T>
 nmap <Leader>u <C-U>
 " 向上翻半屏
 nmap <Leader>d <C-D>
-" 快速移动到行首，行尾
-map <Leader>1 ^
-map <Leader>2 $
 " 补全提示
 ""nmap <Leader>p <C-P>
 " 快速切换C H源文件
