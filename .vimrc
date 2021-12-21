@@ -27,12 +27,15 @@ set pumheight=25
 " 定义快捷键的前缀，即<Leader>
 let mapleader=";"
 
-" Resize window 15 
+" MiniBufExplorer Resize window 15 
 " ;1 ;2 ;3 ;4
 map <Leader>1 <ESC><C-W>15-
 map <Leader>2 <ESC><C-W>15+
 map <Leader>3 <ESC><C-W>15<
 map <Leader>4 <ESC><C-W>15>
+
+" MiniBufExplorer rotate window to right
+map <Leader>r <ESC><C-W>r
 
 " ===================== YCM =====================
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
@@ -101,21 +104,21 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 "set autocmd
-set autoindent		" always set autoindenting on 自动缩进
+set autoindent          " always set autoindenting on 自动缩进
 " indent C++ autoindent private public keyword 
 set cindent
 set cinoptions=g-1
 "if has("vms")
-"  set nobackup		" do not keep a backup file, use versions instead
+"  set nobackup         " do not keep a backup file, use versions instead
 "else
-"  set backup		" keep a backup file
+"  set backup           " keep a backup file
 "endif
 set nobackup        "I hate backup files.
 set number
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
+set history=50          " keep 50 lines of command line history
+set ruler               " show the cursor position all the time
+set showcmd             " display incomplete commands
+set incsearch           " do incremental searching
 "设置非兼容模式
 set nocp
 
@@ -165,6 +168,9 @@ nmap <Leader>gr <C-T>
 nmap <Leader>u <C-U>
 " 向上翻半屏
 nmap <Leader>d <C-D>
+" 快速移动到行首，行尾
+" map <Leader>1 ^
+" map <Leader>2 $
 " 补全提示
 ""nmap <Leader>p <C-P>
 " 快速切换C H源文件
@@ -192,11 +198,11 @@ nmap <Leader>e :e<Space>
 " 不关闭文件推出
 nmap <Leader>z <C-Z>
 " 水平分隔
-nmap <Leader>s :Sex<CR>
+" nmap <Leader>s :Sex<CR>
 " 竖直分隔
-nmap <Leader>v :Vex<CR>
+" nmap <Leader>v :Vex<CR>
 " 全局替换
-nmap <Leader>r :%s/fileName-/fileName+/g
+" nmap <Leader>r :%s/fileName-/fileName+/g
 " align 表格对齐
 nmap <Leader>t :Tab /
 " 打tag
