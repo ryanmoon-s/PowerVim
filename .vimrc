@@ -2,8 +2,8 @@
 " Vundle管理工具
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-        Plugin 'VundleVim/Vundle.vim'
-        ""Plugin 'ycm-core/YouCompleteMe'
+	Plugin 'VundleVim/Vundle.vim'
+	""Plugin 'ycm-core/YouCompleteMe'
     Plugin 'camspiers/animate.vim'
     Plugin 'camspiers/lens.vim'
 call vundle#end()
@@ -23,20 +23,23 @@ let g:lens#width_resize_min = 150
 " ===================== VIM配置 =====================
 " 插件高度 ycm
 set pumheight=25
-" vim 主题 .vim/colors 下面
-colorscheme monokai
+" 主题
+" colorscheme monokai
+colorscheme onedark
+
+"""""""""""""快捷键"""""""""""""
 
 " 定义快捷键的前缀，即<Leader>
 let mapleader=";"
 
-" MiniBufExplorer Resize window 15 
+" MiniBufExplorer Resize window 15
 " ;1 ;2 ;3 ;4
 map <Leader>1 <ESC><C-W>15-
 map <Leader>2 <ESC><C-W>15+
 map <Leader>3 <ESC><C-W>15<
 map <Leader>4 <ESC><C-W>15>
 
-" MiniBufExplorer rotate window to right
+" MiniBufExplorer rotate window
 map <Leader>r <ESC><C-W>r
 
 " ===================== YCM =====================
@@ -106,21 +109,21 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 "set autocmd
-set autoindent          " always set autoindenting on 自动缩进
-" indent C++ autoindent private public keyword 
+set autoindent		" always set autoindenting on 自动缩进
+" indent C++ autoindent private public keyword
 set cindent
 set cinoptions=g-1
 "if has("vms")
-"  set nobackup         " do not keep a backup file, use versions instead
+"  set nobackup		" do not keep a backup file, use versions instead
 "else
-"  set backup           " keep a backup file
+"  set backup		" keep a backup file
 "endif
 set nobackup        "I hate backup files.
 set number
-set history=50          " keep 50 lines of command line history
-set ruler               " show the cursor position all the time
-set showcmd             " display incomplete commands
-set incsearch           " do incremental searching
+set history=50		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+set showcmd		" display incomplete commands
+set incsearch		" do incremental searching
 "设置非兼容模式
 set nocp
 
@@ -162,7 +165,7 @@ nmap tabc :tabc <CR>
 " go to previous table
 map gp :tabp <CR>
 " 定义快捷键 跳转到光标所在关键词的定义处
-" here are multiple matches, show me a list of all the matching tags 
+" here are multiple matches, show me a list of all the matching tags
 nmap <Leader>gt g<C-]>
 " 定义快捷键 跳回原关键词 与 ;gr 配合使用
 nmap <Leader>gr <C-T>
@@ -170,11 +173,6 @@ nmap <Leader>gr <C-T>
 nmap <Leader>u <C-U>
 " 向上翻半屏
 nmap <Leader>d <C-D>
-" 快速移动到行首，行尾
-" map <Leader>1 ^
-" map <Leader>2 $
-" 补全提示
-""nmap <Leader>p <C-P>
 " 快速切换C H源文件
 nmap <Leader>a :A<CR>
 
@@ -217,14 +215,14 @@ nmap<leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
 " java jdk 补全
 map! <C-O> <C-X><C-O>
 " 使用NERDTree插件查看工程文件。设置快捷键
-nnoremap <silent> <Leader>n  :NERDTreeToggle <CR> 
+nnoremap <silent> <Leader>n  :NERDTreeToggle <CR>
 " 设置NERDTree子窗口位置
 let NERDTreeWinPos="left"
 " 设置忽略的文件
 let NERDTreeIgnore=['\.vim$', '\~$', '\.o$', '\.d$', '\.a$', '\.out$', '\.tgz$']
 
 " 使用TlistToggle查看文件函数列表。设置快捷键：<F12>
-nnoremap  <Leader>m  :TlistToggle <CR> 
+nnoremap  <Leader>m  :TlistToggle <CR>
 " 粘贴到系统剪切板
 map <Leader>y "*y
 "禁止自动改变当前Vim窗口的大小
@@ -232,7 +230,7 @@ let Tlist_Inc_Winwidth=0
 "把方法列表放在屏幕的右侧
 let Tlist_Use_Right_Window=1
 "让当前不被编辑的文件的方法列表自动折叠起来
-let Tlist_File_Fold_Auto_Close=1 
+let Tlist_File_Fold_Auto_Close=1
 " let g:winManagerWindowLayout='FileExplorer'
 " 定义快捷键 打开/关闭 winmanger
 " nmap wm :WMToggle<cr>
@@ -260,13 +258,13 @@ set nofen
 
 let cwd=""
 set tags=tags
-"cs add cscope.out 
+"cs add cscope.out
 let g:miniBufExplMapWindowNavArrows = 1
 "允许光标在任何位置时用CTRL-TAB遍历buffer
 let g:miniBufExplMapCTabSwitchBufs = 1
 
 "设置winmanager窗口宽度
-"let g:winManagerWidth = 30 
+"let g:winManagerWidth = 30
 
 " 重新打开文档时光标回到文档关闭前的位置
 if has("autocmd")
@@ -392,11 +390,11 @@ endfunc
 
 " vim cc
 nmap cc :call SetCC() <CR>
-func SetCC() 
-    call append(line("."), "// vim: et tw=100 ts=4 sw=4 cc=120")  
+func SetCC()
+    call append(line("."), "// vim: et tw=100 ts=4 sw=4 cc=120")
 endfunc
 
-" Hello，我是PowerVim的作者，程序员Carl，欢迎关注我的微信公众号：代码随想录 
+" Hello，我是PowerVim的作者，程序员Carl，欢迎关注我的微信公众号：代码随想录
 
 " 添加自动补全字典
 au FileType php setlocal dict+=~/.vim/dictionary/php_keywords_list.txt
@@ -404,12 +402,12 @@ au FileType cpp setlocal dict+=~/.vim/dictionary/cpp_keywords_list.txt
 au FileType java setlocal dict+=~/.vim/dictionary/java_keywords_list.txt
 " au FileType markdown setlocal dict+=~/.vim/dictionary/words.txt
 
-" for vim-syntastic 
-" disabled Syntastic by default 
+" for vim-syntastic
+" disabled Syntastic by default
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 " open/close Syntastic checker
 nnoremap <Leader>p :SyntasticToggleMode<CR> :w<CR>
-" set vim-syntastic compiler 
+" set vim-syntastic compiler
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 set statusline+=%#warningmsg#
@@ -424,20 +422,20 @@ let g:syntastic_check_on_wq = 0
 " 自动已当前文件为根目录，可能会影响使用:Vex的，我在mac是ok的，但是在centos下:Vex功能错乱了
 " set autochdir
 autocmd BufEnter * silent! lcd %:p:h
-" 需要在哪个目录有类函数补全功能，就加载哪个目录的tags 
+" 需要在哪个目录有类函数补全功能，就加载哪个目录的tags
 " set tags+=/Users/XXX/Documents/workplace/brpc/tags
 set tags+=/data/arashi/QQMail/wwoutcontactxmq
 
-" complete with no first suggestion 
+" complete with no first suggestion
 " :set completeopt+=noinsert
 
-set completeopt=menu,menuone  
+set completeopt=menu,menuone
 let OmniCpp_MayCompleteDot=1    "  打开  . 操作符
 let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
 let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
 let OmniCpp_NamespaceSearch=1   " 打开命名空间
-let OmniCpp_GlobalScopeSearch=1  
-let OmniCpp_DefaultNamespace=["std"]  
+let OmniCpp_GlobalScopeSearch=1
+let OmniCpp_DefaultNamespace=["std"]
 let OmniCpp_ShowPrototypeInAbbr=1  " 打开显示函数原型
 let OmniCpp_SelectFirstItem = 2 " 自动弹出时自动跳至第一个
 autocmd BufRead scp://* :set bt=acwrite
@@ -453,9 +451,9 @@ nmap <Leader>o o<Esc>
 
 :set syntax=markdown
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-" au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown 
+" au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 " for me
-func MarkdownSet() 
+func MarkdownSet()
     let filePath=expand('%:p')
     exe ':!open ' . filePath '-a "MacDown"'
 endfunc
@@ -522,3 +520,18 @@ function! GenMarkdownSectionNum()
   echo out
 endfunc
 
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
