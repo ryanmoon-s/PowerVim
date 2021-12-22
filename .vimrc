@@ -23,6 +23,8 @@ let g:lens#width_resize_min = 150
 " ===================== VIM配置 =====================
 " 插件高度 ycm
 set pumheight=25
+" vim 主题 .vim/colors 下面
+colorscheme monokai
 
 " 定义快捷键的前缀，即<Leader>
 let mapleader=";"
@@ -302,7 +304,6 @@ set ruler           " 显示标尺"
 autocmd InsertEnter * se cul    " 用浅色高亮当前行"
 set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示
 
-" :colorscheme desert     " 设置主题
 " vim-commentary style set 注释针对不同语言的注释方法
 autocmd FileType cpp set commentstring=//\ %s
 autocmd FileType php set commentstring=//\ %s
@@ -397,8 +398,6 @@ endfunc
 
 " Hello，我是PowerVim的作者，程序员Carl，欢迎关注我的微信公众号：代码随想录 
 
-" 使用的背景主题
-colorscheme Monokai_Gavin
 " 添加自动补全字典
 au FileType php setlocal dict+=~/.vim/dictionary/php_keywords_list.txt
 au FileType cpp setlocal dict+=~/.vim/dictionary/cpp_keywords_list.txt
