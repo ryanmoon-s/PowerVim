@@ -1,14 +1,24 @@
 " ===================== 插件 =====================
-" Vundle管理工具
+""""""""""""" Vundle """""""""""""
+" 1、下载好放在.vim/bundle 目录下 || 直接执行第2步由插件下载
+" 2、输入 :PluginInstall  进行下载、安装
+set nocompatible
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+    " 让Vundle管理vim插件
 	Plugin 'VundleVim/Vundle.vim'
-	""Plugin 'ycm-core/YouCompleteMe'
+	" Plugin 'ycm-core/YouCompleteMe' 手动安装
+    " 窗口自动调整大小 + 动画
     Plugin 'camspiers/animate.vim'
-    Plugin 'camspiers/lens.vim'
+    " 窗口自动大小
+    " Plugin 'camspiers/lens.vim'
+    " 命令模式长条美化
+    Plugin 'itchyny/lightline.vim'
 call vundle#end()
+filetype plugin indent on
 
-" NERD
+""""""""""""" NERD """""""""""""
 " 窗口大小
 :let g:NERDTreeWinSize=30
 " 为剩下的唯一窗口时自动关闭
@@ -20,6 +30,7 @@ let NERDTreeQuitOnOpen=1
 " 窗口最小 大小
 let g:lens#width_resize_min = 150
 
+
 " ===================== VIM配置 =====================
 " 插件高度 ycm
 set pumheight=25
@@ -27,7 +38,7 @@ set pumheight=25
 " colorscheme monokai
 colorscheme onedark
 
-"""""""""""""快捷键"""""""""""""
+""""""""""""" 快捷键 """""""""""""
 
 " 定义快捷键的前缀，即<Leader>
 let mapleader=";"
@@ -41,6 +52,7 @@ map <Leader>4 <ESC><C-W>15>
 
 " MiniBufExplorer rotate window
 map <Leader>r <ESC><C-W>r
+
 
 " ===================== YCM =====================
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
@@ -95,16 +107,12 @@ highlight YcmWarningSection ctermbg=none
 
 " pathogen plugin manager
 execute pathogen#infect()
-" syntax on
-filetype plugin indent on
 
 "高亮搜索关键词"
 let g:ackhighlight = 1
 "修改快速预览窗口高度为15
 let g:ack_qhandler = "botright copen 15"
 " Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -113,11 +121,7 @@ set autoindent		" always set autoindenting on 自动缩进
 " indent C++ autoindent private public keyword
 set cindent
 set cinoptions=g-1
-"if has("vms")
-"  set nobackup		" do not keep a backup file, use versions instead
-"else
-"  set backup		" keep a backup file
-"endif
+
 set nobackup        "I hate backup files.
 set number
 set history=50		" keep 50 lines of command line history
@@ -126,6 +130,9 @@ set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 "设置非兼容模式
 set nocp
+" 不产生.swp文件
+set noswapfile
+
 
 "set encoding=utf-8
 ""set encoding=gb2312
@@ -143,9 +150,6 @@ set expandtab
 let curpwd = getcwd()
 " vim自身命令行模式智能补全
 set wildmenu
-
-" 不产生.swp文件
-set noswapfile
 
 " 禁止光标闪烁
 " set gcr=a:block-blinkon0
@@ -410,9 +414,9 @@ nnoremap <Leader>p :SyntasticToggleMode<CR> :w<CR>
 " set vim-syntastic compiler
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
