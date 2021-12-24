@@ -1,58 +1,236 @@
-" ===================== 插件 =====================
-""""""""""""" Vundle """""""""""""
-" 1、下载好放在.vim/bundle 目录下 || 直接执行第2步由插件下载
-" 2、输入 :PluginInstall  进行下载、安装
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-    " 让Vundle管理vim插件
-	Plugin 'VundleVim/Vundle.vim'
-	" Plugin 'ycm-core/YouCompleteMe' 手动安装
-    " 窗口自动调整大小 + 动画
-    Plugin 'camspiers/animate.vim'
-    " 窗口自动大小
-    " Plugin 'camspiers/lens.vim'
-    " 命令模式长条美化
-    Plugin 'itchyny/lightline.vim'
-call vundle#end()
-filetype plugin indent on
+" ===================== 教学 =====================
+" 快捷键 map
+" n/i/c   nore    map    <silent>        src-cmd    dst-cmd
+" mode    非递归  映射   不显示提示信息
+
+" <CR>     carriage-return 回车
+" <ESC>    esc
+" <C-w>    Ctrl + w 可跟大写
+" <Space>  space
+
+
+
+" ===================== 插件管理 =====================
+" https://github.com/junegunn/vim-plug
+call plug#begin('~/.vim/plugged')
+
+" 状态栏
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" 窗口调整大小动画
+Plug 'camspiers/animate.vim'
+" 窗口自动适应大小
+Plug 'camspiers/lens.vim'
+
+" 在左侧查看git提交差异
+Plug 'airblade/vim-gitgutter'
+
+" 左边文件窗口
+Plug 'preservim/nerdtree'
+
+" 代码对齐
+" Plug 'godlygeek/tabular'
+
+" 快捷键注释 行:gcc  块: gc
+Plug 'tpope/vim-commentary'
+
+" 快捷键使用ack，前提是已经安装ack
+Plug 'mileszs/ack.vim'
+
+" minibuf 顶部文件浏览
+""Plug 'fholgado/minibufexpl.vim'
+
+" 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
+" Plug 'rdnetto/YCM-Generator'
+
+" taglist  ;m 显示tags
+Plug 'preservim/tagbar'
+
+" 最强提示插件 sh ycm_install.sh
+Plug 'ycm-core/YouCompleteMe'
+
+" 在头/源文件之间快速跳转
+Plug 'vim-scripts/a.vim'
+
+call plug#end()
 
 """"""""""""" NERD """""""""""""
-" 窗口大小
-:let g:NERDTreeWinSize=30
+" 定义快捷键的前缀，即<Leader>
+let mapleader=";"
 " 为剩下的唯一窗口时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q |
 " 打开文件自动关闭
 let NERDTreeQuitOnOpen=1
+" 子窗口位置
+let NERDTreeWinPos="left"
+" 忽略的文件
+let NERDTreeIgnore=['\.vim$', '\~$', '\.o$', '\.d$', '\.a$', '\.out$', '\.tgz$']
+" 快捷键打开nerd
+nnoremap <silent> <Leader>n :NERDTreeToggle <CR>
 
-" lens
-" 窗口最小 大小
-let g:lens#width_resize_min = 150
+""""""""""""" airline """""""""""""
+set laststatus=2  "永远显示状态栏
+let g:airline_theme='violet' "选择主题
+" table line
+let g:airline#extensions#tabline#enabled = 1   " 是否打开tabline
+let g:airline_powerline_fonts = 1 " 安装字体后 必须设置此项
+" tbale line 分隔符
+"let g:airline#extensions#tabline#left_sep = ' '  "separater
+"let g:airline#extensions#tabline#left_alt_sep = '|'  "separater
+" status line 分隔符
+let g:airline_left_sep = '▶'
+let g:airline_left_alt_sep = '❯'
+let g:airline_right_sep = '◀'
+let g:airline_right_alt_sep = '❮'
+" buffer
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <Leader>5 <Plug>AirlineSelectPrevTab
+nmap <Leader>6 <Plug>AirlineSelectNextTab
 
+" statusbar 最后的[23]trailing 表示23行 末尾的文字后面有尾随的空格
+
+""""""""""""" other """""""""""""
+set updatetime=100 " gitgutter更新间隔
+
+let g:ackhighlight = 1 " ack高亮搜索关键词
+let g:ack_qhandler = "botright copen 15" " ack修改快速预览窗口高度为15
+
+" taglist 查看符号列表 
+nnoremap <Leader>m  :TagbarToggle <CR>
 
 " ===================== VIM配置 =====================
-" 插件高度 ycm
-set pumheight=25
 " 主题
 " colorscheme monokai
 colorscheme onedark
 
-""""""""""""" 快捷键 """""""""""""
+" 基于语法高亮的代码折叠
+set foldmethod=syntax
+" 启动vim时打开所有折叠代码。
+set nofen
+" zc 折叠
+" zC 对范围内的所有嵌套折叠
+" zo 展开
+" zO 对范围内的所有折叠展开
+" zj 向下移动，到下一个折叠的开始处，关闭的折叠也计入
+" zk 向上移动，到下一个折叠的结束处，关闭的折叠也计入
 
-" 定义快捷键的前缀，即<Leader>
-let mapleader=";"
+" 插件高度 ycm
+set pumheight=25
+" 退格可以删除：自动缩进、跨行、之前插入的
+set backspace=indent,eol,start
+" o O <CR> 时复制上一行的缩进格式
+set autoindent
+" c-style indent
+set cindent
+set cinoptions=g-1
+" 不产生交换文件
+set nobackup
+" 行号 :no nu 取消
+set number
+" 命令保存的条数
+set history=50
+" 显示鼠标位置
+set ruler
+" 显示未完成的命令
+set showcmd
+" 增量搜索 increase search 边输入边搜索 
+set incsearch
+"设置非兼容vi模式
+set nocompatible
+" 不产生.swp文件
+set noswapfile
+" <Table> 长度
+set tabstop=4
+" 缩进偏移量 
+set shiftwidth=4
+" 智能缩进
+set smartindent
+" 显示匹配的括号
+set showmatch
+" 把<Table>替换成等量的空格
+set expandtab
+" 指定何时启动选择模式，而不是可视模式
+set selectmode=mouse,key
+" 选择模式
+set selection=exclusive
+" 搜索时大小写不敏感
+set ignorecase "设置默认大小写不敏感查找
+set smartcase "如果有大小写字母，则切换到大小写敏感查找
+" tags搜索路径
+set tags=./.tags;,.tags "在每个目录下如果找不到tags就到上一层目录去找
+" 编码
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+" set modeline
+set modeline
+" 搜索关键词高亮
+set hlsearch
+" 开启语义分析
+syntax enable
+" 语法高亮
+syntax on
+" 不显示打开文件时的提示
+set shortmess=atI
+" 开启文件类型侦测
+filetype on
+" 根据侦测到的不同类型加载对应的插件
+filetype plugin on
+" 根据侦测到的不同类型采用不同的缩进格式
+filetype indent on
 
-" MiniBufExplorer Resize window 15
-" ;1 ;2 ;3 ;4
+" ===================== map(快捷键) =====================
+" Ack搜索 不自动打开第一个文件
+map <Leader>fw :Ack! <Space>
+" AckFile搜索 不打自动开第一个文件
+map <Leader>ff :AckFile!<Space>
+" 关闭当前分割窗口
+nmap <Leader>q :q<CR>
+" 保存
+nmap <Leader>w :w<CR>
+" 定义快捷键 跳转到光标所在关键词的定义处
+nmap <Leader>gt g<C-]>
+" 定义快捷键 跳回原关键词 与 ;gr 配合使用
+nmap <Leader>gr <C-T>
+" 向下翻半屏
+nmap <Leader>u <C-U>
+" 向上翻半屏
+nmap <Leader>d <C-D>
+" 快速切换头/源文件 需要a.vim插件支持
+nmap <Leader>a :gf <CR>
+" 去除搜索高亮
+nmap <Leader>b :noh<CR>
+" 打开文件
+nmap <Leader>e :e<Space>
+" 打ctag
+nmap<leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
+
+"括号匹配 ESC光标向前移一格 i 进行括号里面
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap ' ''<ESC>i
+inoremap " ""<ESC>i
+
+" 使用ctrl c,v实现vim之间的复制粘贴 非mac os实用
+vnoremap <C-c> :w! ~/tmp/clipboard.txt <CR>
+inoremap <C-v> <Esc>:r ~/tmp/clipboard.txt <CR>
+
+" 窗口大小调整
+" 1变低 2变高 3变窄 4变宽
 map <Leader>1 <ESC><C-W>15-
 map <Leader>2 <ESC><C-W>15+
 map <Leader>3 <ESC><C-W>15<
 map <Leader>4 <ESC><C-W>15>
 
-" MiniBufExplorer rotate window
-map <Leader>r <ESC><C-W>r
+" 窗口移动 左 右 上 下
+nnoremap <leader>h <C-W><C-H>
+nnoremap <leader>l <C-W><C-L>
+nnoremap <Leader>k <C-W><C-K>
+nnoremap <Leader>j <C-W><C-J>
 
+" 窗口交换 依次向后
+map <Leader>r <ESC><C-W>r
 
 " ===================== YCM =====================
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
@@ -70,8 +248,6 @@ let g:ycm_collect_identifiers_from_tags_files=1
 inoremap <leader>; <C-x><C-o>
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
-" 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_semantic_triggers =  {
@@ -100,235 +276,22 @@ highlight YcmWarningSection ctermbg=none
 "highlight YcmWarningLine
 
 
-" ================================================
-" 以上为DIY配置
-" ================================================
-
-
-" pathogen plugin manager
-execute pathogen#infect()
-
-"高亮搜索关键词"
-let g:ackhighlight = 1
-"修改快速预览窗口高度为15
-let g:ack_qhandler = "botright copen 15"
-" Use Vim settings, rather then Vi settings (much better!).
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-"set autocmd
-set autoindent		" always set autoindenting on 自动缩进
-" indent C++ autoindent private public keyword
-set cindent
-set cinoptions=g-1
-
-set nobackup        "I hate backup files.
-set number
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-"设置非兼容模式
-set nocp
-" 不产生.swp文件
-set noswapfile
-
-
-"set encoding=utf-8
-""set encoding=gb2312
-set langmenu=zh_CN.gb2312
-language message zh_CN.gb2312
-
-set fileencoding=gbk2312
-set ts=4
-set sw=4
-set smartindent
-set showmatch        " Show matching brackets.
-set guioptions-=T
-set expandtab
-
-let curpwd = getcwd()
-" vim自身命令行模式智能补全
-set wildmenu
-
-" 禁止光标闪烁
-" set gcr=a:block-blinkon0
-
-" ack搜索时不打开第一个搜索文件
-map <Leader>fw :Ack! <Space>
-" AckFile不打开第一个搜索文件
-map <Leader>ff :AckFile!<Space>
-" 定义快捷键 关闭当前分割窗口
-nmap <Leader>q :q<CR>
-" 定义快捷键
-nmap <Leader>w :w<CR>
-" 删除光标所在单词
-" nmap e daw
-" close TAB
-nmap tabc :tabc <CR>
-" go to previous table
-map gp :tabp <CR>
-" 定义快捷键 跳转到光标所在关键词的定义处
-" here are multiple matches, show me a list of all the matching tags
-nmap <Leader>gt g<C-]>
-" 定义快捷键 跳回原关键词 与 ;gr 配合使用
-nmap <Leader>gr <C-T>
-" 向下翻半屏
-nmap <Leader>u <C-U>
-" 向上翻半屏
-nmap <Leader>d <C-D>
-" 快速切换C H源文件
-nmap <Leader>a :A<CR>
-
-"快速切换到上一个文件
-" nmap <Leader>j :bn<CR>
-" nmap <Leader>k :bp<CR>
-
-" 设置快捷键gs遍历各分割窗口。快捷键速记法：goto the next spilt window
-nnoremap <Leader>gg <C-W><C-W>
-
-" 向左
-nnoremap <leader>h <C-W><C-H>
-" 向右
-nnoremap <leader>l <C-W><C-L>
-" 向上
-nnoremap <Leader>k <C-W><C-K>
-" 向下
-nnoremap <Leader>j <C-W><C-J>
-" 去除高亮
-"nmap <Leader>h :noh<CR>
-" 打开文件
-nmap <Leader>e :e<Space>
-" 不关闭文件推出
-nmap <Leader>z <C-Z>
-" 水平分隔
-" nmap <Leader>s :Sex<CR>
-" 竖直分隔
-" nmap <Leader>v :Vex<CR>
-" 全局替换
-" nmap <Leader>r :%s/fileName-/fileName+/g
-" align 表格对齐
-nmap <Leader>t :Tab /
-" 打tag
-" --c++-kinds=+p  : Adds prototypes in the database for C/C++ files.
-"--fields=+iaS   : Adds inheritance (i), access (a) and function
-"                  signatures (S) information.
-"--extra=+q      : Adds context to the tag name. Note: Without this
-"                  option, the script cannot get class members.
-nmap<leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
-" java jdk 补全
-map! <C-O> <C-X><C-O>
-" 使用NERDTree插件查看工程文件。设置快捷键
-nnoremap <silent> <Leader>n  :NERDTreeToggle <CR>
-" 设置NERDTree子窗口位置
-let NERDTreeWinPos="left"
-" 设置忽略的文件
-let NERDTreeIgnore=['\.vim$', '\~$', '\.o$', '\.d$', '\.a$', '\.out$', '\.tgz$']
-
-" 使用TlistToggle查看文件函数列表。设置快捷键：<F12>
-nnoremap  <Leader>m  :TlistToggle <CR>
-" 粘贴到系统剪切板
-map <Leader>y "*y
-"禁止自动改变当前Vim窗口的大小
-let Tlist_Inc_Winwidth=0
-"把方法列表放在屏幕的右侧
-let Tlist_Use_Right_Window=1
-"让当前不被编辑的文件的方法列表自动折叠起来
-let Tlist_File_Fold_Auto_Close=1
-" let g:winManagerWindowLayout='FileExplorer'
-" 定义快捷键 打开/关闭 winmanger
-" nmap wm :WMToggle<cr>
-" let g:winManagerWidth=20
-" 开启文件类型侦测
-filetype on
-" 根据侦测到的不同类型加载对应的插件
-filetype plugin on
-" 根据侦测到的不同类型采用不同的缩进格式
-filetype indent on
-
-" 取消补全内容以分割子窗口形式出现，只显示补全列表
-" set completeopt=longest,menu
-
-"cs add $curpwd/cscope.out $curpwd/
-let g:SuperTabRetainCompletionType=2
-let g:SuperTabDefaultCompletionType="<C-X><C-O>"
-set cscopequickfix=s-,c-,d-,i-,t-,e-
-
-
-" VIM支持多种文本折叠方式，我VIM多用于编码，所以选择符合编程语言语法的代码折叠方式。
-" set foldmethod=syntax
-" 启动vim时打开所有折叠代码。
-set nofen
-
-let cwd=""
-set tags=tags
-"cs add cscope.out
-let g:miniBufExplMapWindowNavArrows = 1
-"允许光标在任何位置时用CTRL-TAB遍历buffer
-let g:miniBufExplMapCTabSwitchBufs = 1
-
-"设置winmanager窗口宽度
-"let g:winManagerWidth = 30
-
-" 重新打开文档时光标回到文档关闭前的位置
-if has("autocmd")
- autocmd BufReadPost *
- \ if line("'\"") > 0 && line ("'\"") <= line("$") |
- \ exe "normal g'\"" |
-\ endif
-endif
-
-
+" ===================== autocmd =====================
+autocmd InsertEnter * se cul    " 用浅色高亮当前行"
 "花括号自动格式化，首行一个tab
 autocmd FileType cpp,java inoremap { {<CR>}<ESC>kA<CR>
-
-set fenc=" "
-"显示匹配
-set showmatch
-"括号匹配
-inoremap ( ()<ESC>i
-inoremap [ []<ESC>i
-inoremap ' ''<ESC>i
-inoremap " ""<ESC>i
-set selectmode=mouse,key
-set selection=exclusive
-""set mouse=n "可视模式下使用鼠标，set mouse=a这个命令导致在vim下复制粘贴不好用
-set ai "vim中复制粘贴保存格式
-set ignorecase "设置默认大小写不敏感查找
-set smartcase "如果有大小写字母，则切换到大小写敏感查找
-set tags=tags;/ "告诉在每个目录下如果找不到tags就到上一层目录去找
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-
-
-set ruler           " 显示标尺"
-autocmd InsertEnter * se cul    " 用浅色高亮当前行"
-set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示
 
 " vim-commentary style set 注释针对不同语言的注释方法
 autocmd FileType cpp set commentstring=//\ %s
 autocmd FileType php set commentstring=//\ %s
-" set modeline
-set modeline
-" 搜索关键词高亮
-set hlsearch
-" 开启语义分析
-syntax enable
-syntax on
-" 使用ctrlc, v就可以实现vim之间的复制粘贴
-vnoremap <C-c> :w! ~/tmp/clipboard.txt <CR>
-inoremap <C-v> <Esc>:r ~/tmp/clipboard.txt <CR>
+
 " 编译快捷键
 autocmd filetype python nnoremap <F1> :w <bar> exec '!python '.shellescape('%')<CR> autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ --std=c++11 -pthread '.shellescape('%').' -o ./bin/'.shellescape('%:r').' && ./bin/'.shellescape('%:r')<CR>
 " autocmd filetype dot nnoremap <F1> :w <bar> exec '!dot -Tsvg '.shellescape('%').' > ./svg/'.shellescape('%:r').' && open ./bin/'.shellescape('%:r')<CR>
 autocmd filetype dot nnoremap <F1> :w <bar> exec '!dot -Tsvg sqlparse.dot > sqlparse.svg'<CR>
-autocmd Filetype java nnoremap <F1> :w <bar> exec '!javac '.shellescape('%'). ' -d ./bin'<CR>
-autocmd filetype java nnoremap <F2> :w <bar> exec '!java -cp ./bin '.shellescape('%:r')<CR>
 
 
-let g:tlist_markdown_settings = 'markdown;h:Headlins'
 "新建.c,.h,.sh,.Java文件，自动插入文件头
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.Java,*.go exec ":call SetTitle()"
 """定义函数SetTitle，自动插入文件头
@@ -357,6 +320,8 @@ func SetTitle()
     autocmd BufNewFile * normal G
 endfunc
 
+
+" ===================== function =====================
 
 " shortcut for markdown
 " 创建时间快捷键for markdown
@@ -398,132 +363,18 @@ func SetCC()
     call append(line("."), "// vim: et tw=100 ts=4 sw=4 cc=120")
 endfunc
 
-" Hello，我是PowerVim的作者，程序员Carl，欢迎关注我的微信公众号：代码随想录
+" ===================== block =====================
 
-" 添加自动补全字典
-au FileType php setlocal dict+=~/.vim/dictionary/php_keywords_list.txt
-au FileType cpp setlocal dict+=~/.vim/dictionary/cpp_keywords_list.txt
-au FileType java setlocal dict+=~/.vim/dictionary/java_keywords_list.txt
-" au FileType markdown setlocal dict+=~/.vim/dictionary/words.txt
+" 重新打开文档时光标回到文档关闭前的位置
+if has("autocmd")
+ autocmd BufReadPost *
+ \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+ \ exe "normal g'\"" |
+\ endif
+endif
 
-" for vim-syntastic
-" disabled Syntastic by default
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-" open/close Syntastic checker
-nnoremap <Leader>p :SyntasticToggleMode<CR> :w<CR>
-" set vim-syntastic compiler
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
-" test
-" 自动已当前文件为根目录，可能会影响使用:Vex的，我在mac是ok的，但是在centos下:Vex功能错乱了
-" set autochdir
-autocmd BufEnter * silent! lcd %:p:h
-" 需要在哪个目录有类函数补全功能，就加载哪个目录的tags
-" set tags+=/Users/XXX/Documents/workplace/brpc/tags
-set tags+=/data/arashi/QQMail/wwoutcontactxmq
-
-" complete with no first suggestion
-" :set completeopt+=noinsert
-
-set completeopt=menu,menuone
-let OmniCpp_MayCompleteDot=1    "  打开  . 操作符
-let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
-let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
-let OmniCpp_NamespaceSearch=1   " 打开命名空间
-let OmniCpp_GlobalScopeSearch=1
-let OmniCpp_DefaultNamespace=["std"]
-let OmniCpp_ShowPrototypeInAbbr=1  " 打开显示函数原型
-let OmniCpp_SelectFirstItem = 2 " 自动弹出时自动跳至第一个
-autocmd BufRead scp://* :set bt=acwrite
-" au FileType * setlocal dict+=~/.vim/dictionary/words.txt
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-let g:JavaComplete_JavaCompiler="/Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/bin/javac"
-" for JavaComplete
-nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-nmap <Leader>o o<Esc>
-
-:set syntax=markdown
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-" au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-" for me
-func MarkdownSet()
-    let filePath=expand('%:p')
-    exe ':!open ' . filePath '-a "MacDown"'
-endfunc
-
-" usage :call GenMarkdownSectionNum    给markdown 文件生成目录编号
-function! GenMarkdownSectionNum()
-  if &ft != "markdown"
-    echohl Error
-    echo "filetype is not markdown"
-    echohl None
-    return
-  endif
-
-  let lvl = []
-  let sect = []
-  let out = ""
-  for i in range(1, line('$'), 1)
-    let line = getline(i)
-    let heading_lvl = strlen(substitute(line, '^\(#*\).*', '\1', ''))
-    if heading_lvl < 2
-      continue
-    endif
-    " there should be only 1 H1, topmost, on a conventional web page
-    " we should generate section numbers begin with the first heading level 2
-    if len(lvl) == 0
-      if heading_lvl != 2 " count from level 2
-        echohl Error
-        echo "subsection must have parent section, ignore illegal heading line at line " . i
-        echohl None
-        continue
-      endif
-      call add(sect, 1)
-      call add(lvl, heading_lvl)
-    else
-      if lvl[-1] == heading_lvl
-        let sect[-1] = sect[-1] + 1
-      elseif lvl[-1] > heading_lvl " pop all lvl less than heading_lvl from tail
-        while len(lvl) != 0 && lvl[-1] > heading_lvl
-          call remove(lvl, -1)
-          call remove(sect, -1)
-        endwhile
-        let sect[-1] = sect[-1] + 1
-      elseif lvl[-1] < heading_lvl
-        if heading_lvl - lvl[-1] != 1
-          echohl Error
-          echo "subsection must have parent section, ignore illegal heading line at line " . i
-          echohl None
-          continue
-        endif
-        call add(sect, 1)
-        call add(lvl, heading_lvl)
-      endif
-    endif
-
-    let cur_sect = ""
-    for j in sect
-      let cur_sect = cur_sect . "." . j
-    endfor
-    let cur_sect = cur_sect[1:]
-    let out = out . " " . cur_sect
-    call setline(i, substitute(line, '^\(#\+\) \?\([0-9.]\+ \)\? *\(.*\)', '\1 ' . cur_sect . ' \3', line))
-  endfor
-  " echo lvl sect out
-  echo out
-endfunc
-
+"onedark
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
@@ -539,3 +390,4 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+
