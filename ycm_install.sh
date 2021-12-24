@@ -6,11 +6,13 @@
 #########################################################################
 #!/bin/bash
 
-if [[ ! -d ".vim/plugged/YouCompleteMe" ]]; then
-    echo "请选进入vim 运行:PlugInstall 安装YouCompleteMe"
+ycm_dir=".vim/plugged/YouCompleteMe"
+
+if [[ ! -d $ycm_dir ]]; then
+    echo "请先进入vim 运行:PlugInstall 安装YouCompleteMe"
 else
-    cd .vim/plugged/YouCompleteMe
-    python3 ./install.py --clang-completer --system-libclang
+    python3 $ycm_dir/install.py --clang-completer --system-libclang
+    mv .ycm_extra_conf.py $ycm_dir
 fi
 
 # 遇到缺少的库去安装

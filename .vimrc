@@ -47,8 +47,8 @@ Plug 'mileszs/ack.vim'
 " taglist  ;m 显示tags
 Plug 'preservim/tagbar'
 
-" 最强提示插件 sh ycm_install.sh
-Plug 'ycm-core/YouCompleteMe'
+" 最强语法提示插件  sh ycm_install.sh
+Plug 'ryanmoon-s/YouCompleteMe'
 
 " 在头/源文件之间快速跳转
 Plug 'vim-scripts/a.vim'
