@@ -35,6 +35,10 @@ echo "\033[0;32mln -s ${PowerVim}/.vim .vim\033[0m"
 ln -s ${PowerVim}/.vim .vim
 echo "\033[0;32mln -s ${PowerVim}/.ctags .ctags\033[0m"
 ln -s ${PowerVim}/.ctags .ctags
+
+# 安装vim插件
+vim +PlugInstall +qall
+
  # _____                    __      ___           
  # |  __ \                   \ \    / (_)          
  # | |__) |____      _____ _ _\ \  / / _ _ __ ___  
