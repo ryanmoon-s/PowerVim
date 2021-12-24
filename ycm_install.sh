@@ -9,11 +9,15 @@
 ycm_dir=".vim/plugged/YouCompleteMe"
 
 if [[ ! -d $ycm_dir ]]; then
-    echo "请先进入vim 运行:PlugInstall 安装YouCompleteMe"
+    echo "请先进入vim 运行:PlugInstall 下载YouCompleteMe"
 else
     python3 $ycm_dir/install.py --clang-completer --system-libclang
-    mv .ycm_extra_conf.py $ycm_dir
+    cp .ycm_extra_conf.py $ycm_dir
+    echo "\n\n[不出意外的话已经安装成功了]"
+    echo "\n\n[很有必要将~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py移到开发项目的根目录]\n\n"
 fi
+
+# tips:
 
 # 遇到缺少的库去安装
 # 如果商店安装的库版本不够新，去百度下载手动编译 (可能有vim cmake等)

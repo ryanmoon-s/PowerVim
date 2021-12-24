@@ -115,7 +115,7 @@ set nofen
 " zj 向下移动，到下一个折叠的开始处，关闭的折叠也计入
 " zk 向上移动，到下一个折叠的结束处，关闭的折叠也计入
 
-" 插件高度 ycm
+" 插件高度 main for ycm
 set pumheight=25
 " 退格可以删除：自动缩进、跨行、之前插入的
 set backspace=indent,eol,start
@@ -233,7 +233,7 @@ nnoremap <Leader>j <C-W><C-J>
 map <Leader>r <ESC><C-W>r
 
 " ===================== YCM =====================
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
 let g:ycm_show_diagnostics_ui = 1    " 开启实时错误或者warning的检测
 let g:ycm_add_preview_to_completeopt = 0    " 关闭补全预览
 " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
