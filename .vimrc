@@ -1,4 +1,4 @@
-" 定义快捷键前缀，即<Leader>
+" 定义快捷键前缀，即<Leader> 对数字无效
 let mapleader=";"
 
 " ===================== 教学 =====================
@@ -80,7 +80,7 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1   " 切换模式
 nmap 2 <Plug>AirlineSelectPrevTab  " 前一个tab 只可nmap 不可nnoremap
 nmap 3 <Plug>AirlineSelectNextTab  " 后一个tab
 let g:airline#extensions#tabline#left_sep = ''        " 分隔符
-let g:airline#extensions#tabline#left_alt_sep = '❯'
+let g:airline#extensions#tabline#left_alt_sep = '➤'
 
 " symbol
 if !exists('g:airline_symbols')
@@ -90,9 +90,9 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '❯'
 let g:airline_right_sep = '▌'
 let g:airline_right_alt_sep = '❮'
-let g:airline_symbols.linenr = ' ['
-let g:airline_symbols.maxlinenr = ']'
-let g:airline_symbols.colnr = '  ('
+let g:airline_symbols.linenr = '  ｢'
+let g:airline_symbols.maxlinenr = '｣'
+let g:airline_symbols.colnr = '   ❤ '
 let g:airline_symbols.paste = '[paste]'
 let g:airline_symbols.notexists = 'Ɇ'
 let g:airline_symbols.whitespace = 'Ξ'
@@ -293,6 +293,8 @@ nnoremap <leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
 nnoremap e $
 " 括号匹配 
 nnoremap 1 %
+" source .vimrc
+nnoremap <Leader>s :source ~/.vimrc <CR>
 
 " taglist 查看符号列表 
 nnoremap <Leader>m :TagbarToggle <CR>
@@ -402,7 +404,7 @@ endfunc
 " 当前位置 插入 lorem 凑位词
 nnoremap lm :call Lorem() <CR> 0
 func Lorem()
-        call append(line("."), "Lorem ipsum dolor sit amet, consectetur adipisicing elit d dolore magna aliqua.")
+        call append(line("."), "Lorem ipsum dolor sit amet, consectetur adipisicing elit dolore magna aliqua.")
 endfunc
 
 " 自动插入文件头 .cpp .c .h .sh .java .go 
