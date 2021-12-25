@@ -70,22 +70,22 @@ nnoremap <silent> <Leader>n :NERDTreeToggle <CR>
 
 """"""""""""" airline """""""""""""
  "永远显示状态栏
-set laststatus=2 
+set laststatus=2
  "选择主题
 let g:airline_theme='violet'
 
 " tableline (buffer)
 let g:airline#extensions#tabline#enabled = 1           " 是否打开tabline
 let g:airline#extensions#tabline#buffer_idx_mode = 1   " 切换模式
-nmap 2 <Plug>AirlineSelectPrevTab  " 前一个tab 只可nmap 不可nnoremap
-nmap 3 <Plug>AirlineSelectNextTab  " 后一个tab
+nmap [ <Plug>AirlineSelectPrevTab  " 前一个tab 只可nmap 不可nnoremap
+nmap ] <Plug>AirlineSelectNextTab  " 后一个tab
 let g:airline#extensions#tabline#left_sep = ''        " 分隔符
 let g:airline#extensions#tabline#left_alt_sep = '➤'
 
 " symbol
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
-endif 
+endif
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '❯'
 let g:airline_right_sep = '▌'
@@ -104,7 +104,7 @@ let g:airline_symbols.branch = '⎇'''
 
 """"""""""""" gitgutter """""""""""""
 " 更新间隔
-set updatetime=100 
+set updatetime=100
 " 标志符号
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_removed = '-'
@@ -119,7 +119,7 @@ nnoremap 'j <Plug>(GitGutterNextHunk)
 
 """"""""""""" ack """""""""""""
 " 高亮搜索关键词
-let g:ackhighlight = 1 
+let g:ackhighlight = 1
 " 修改快速预览窗口高度为15
 let g:ack_qhandler = "botright copen 15"
 
@@ -146,7 +146,7 @@ set nofen
 
 """"""""""""" other """""""""""""
 " 点亮光标所在前行
-set cursorline 
+set cursorline
 " 插件高度 main for ycm
 set pumheight=25
 " 退格可以删除：自动缩进、跨行、之前插入的
@@ -166,7 +166,7 @@ set history=50
 set ruler
 " 显示未完成的命令
 set showcmd
-" 增量搜索 increase search 边输入边搜索 
+" 增量搜索 increase search 边输入边搜索
 set incsearch
 "设置非兼容vi模式
 set nocompatible
@@ -174,7 +174,7 @@ set nocompatible
 set noswapfile
 " <Table> 长度
 set tabstop=4
-" 缩进偏移量 
+" 缩进偏移量
 set shiftwidth=4
 " 智能缩进
 set smartindent
@@ -234,7 +234,7 @@ filetype indent on
 " y: yy nyy ygg yG yw y0 y$
 " 剪切 复制 [可以] -->  左接数字 || 右接跳转
 " 只能左接数字 s x
-" 可以右接跳转 y d c 
+" 可以右接跳转 y d c
 
 " 禁用快捷键 需要shift+ 才能按出的
 nnoremap R <nop>
@@ -291,12 +291,12 @@ nnoremap <Leader>e :e<Space>
 nnoremap <leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
 " 行尾
 nnoremap e $
-" 括号匹配 
-nnoremap 1 %
+" 括号匹配
+" nnoremap 1 %
 " source .vimrc
 nnoremap <Leader>s :source ~/.vimrc <CR>
 
-" taglist 查看符号列表 
+" taglist 查看符号列表
 nnoremap <Leader>m :TagbarToggle <CR>
 
 " 输入括号时 括号匹配 ESC光标会向前移一格
@@ -339,7 +339,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py
 " 开启实时错误或者warning的检测
 let g:ycm_show_diagnostics_ui = 1
 " 关闭补全预览
-let g:ycm_add_preview_to_completeopt = 0 
+let g:ycm_add_preview_to_completeopt = 0
 " 允许vim加载.ycm_extra_conf.py文件，不再提示
 let g:ycm_confirm_extra_conf = 0
 " 补全内容不以分割子窗口形式出现，只显示补全列表
@@ -366,7 +366,7 @@ let g:ycm_semantic_triggers =  {
   \   'erlang' : [':'],
   \ }
 " error标记
-let g:ycm_error_symbol = '✗'  
+let g:ycm_error_symbol = '✗'
 " warning标记
 let g:ycm_warning_symbol = '⚠'
 " 颜色
@@ -407,7 +407,7 @@ func Lorem()
         call append(line("."), "Lorem ipsum dolor sit amet, consectetur adipisicing elit dolore magna aliqua.")
 endfunc
 
-" 自动插入文件头 .cpp .c .h .sh .java .go 
+" 自动插入文件头 .cpp .c .h .sh .java .go
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.Java,*.go exec ":call SetTitle()"
 func SetTitle()
     if &filetype == 'sh'
