@@ -9,8 +9,6 @@
 " <Space>  space
 " <Leader> mapleader
 
-
-
 " ===================== 插件管理 =====================
 " https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
@@ -53,6 +51,9 @@ Plug 'vim-scripts/a.vim'
 
 " TODO blame
 
+" powerline font
+Plug 'powerline/fonts'
+
 call plug#end()
 
 """"""""""""" NERD """""""""""""
@@ -73,27 +74,33 @@ nnoremap <silent> <Leader>n :NERDTreeToggle <CR>
 set laststatus=2  "永远显示状态栏
 let g:airline_theme='violet' "选择主题
 
-" table line
+" tableline(buffer)
 let g:airline#extensions#tabline#enabled = 1   " 是否打开tabline
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 nmap <Leader>5 <Plug>AirlineSelectPrevTab
 nmap <Leader>6 <Plug>AirlineSelectNextTab
-" tbale line 分隔符
-"let g:airline#extensions#tabline#left_sep = ' '  "separater
+" 分隔符
+let g:airline#extensions#tabline#left_sep = '▶'  "separater
 "let g:airline#extensions#tabline#left_alt_sep = '|'  "separater
 
-" status line 分隔符
-let g:airline_left_sep = '▶'
+" symbol
+let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif 
+let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '❯'
 let g:airline_right_sep = '◀'
 let g:airline_right_alt_sep = '❮'
+let g:airline_symbols.linenr = ' ['
+let g:airline_symbols.maxlinenr = ']'
+let g:airline_symbols.colnr = '  ('
+let g:airline_symbols.paste = '[paste]'
+let g:airline_symbols.notexists = 'Ɇ'
+let g:airline_symbols.whitespace = 'Ξ'
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.branch = '⎇'''
 " statusbar 最后的[23]trailing 表示23行 末尾的文字后面有尾随的空格
 
 """"""""""""" other """""""""""""
