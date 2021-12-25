@@ -95,10 +95,6 @@ endif
 let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 
-let g:airline#extensions#hunks#enabled = 1
-let g:airline#extensions#hunks#coc_git = 1
-autocmd User CocGitStatusChange {command}
-
 " statusbar 最后的[23]trailing 表示23行 末尾的文字后面有尾随的空格
 
 """"""""""""" other """""""""""""
@@ -115,18 +111,6 @@ autocmd VimEnter * GitGutter
 " 改动块 间跳转
 nmap 'k <Plug>(GitGutterPrevHunk)
 nmap 'j <Plug>(GitGutterNextHunk)
-function! GitStatus()
-  let [a,m,r] = GitGutterGetHunkSummary()
-  return printf('@%d *%d -%d', a, m, r)
-endfunction
-set statusline+=%{GitStatus()}
-
-function! LightlineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  " return blame
-  return winwidth(0) > 120 ? blame : ''
-endfunction
-set statusline+=%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}
 
 " ack
 let g:ackhighlight = 1 " ack高亮搜索关键词
