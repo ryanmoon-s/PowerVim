@@ -1,5 +1,5 @@
 " ===================== 教学 =====================
-" 快捷键 map
+" == 快捷键 map ==
 " n/i/c   nore    map    <silent>        src-cmd    dst-cmd
 " mode    非递归  映射   不显示提示信息
 
@@ -7,6 +7,7 @@
 " <ESC>    esc
 " <C-w>    Ctrl + w 可跟大写
 " <Space>  space
+" <Leader> mapleader
 
 
 
@@ -38,9 +39,6 @@ Plug 'tpope/vim-commentary'
 " 快捷键使用ack，前提是已经安装ack
 Plug 'mileszs/ack.vim'
 
-" minibuf 顶部文件浏览
-""Plug 'fholgado/minibufexpl.vim'
-
 " 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
 " Plug 'rdnetto/YCM-Generator'
 
@@ -52,6 +50,9 @@ Plug 'ryanmoon-s/YouCompleteMe'
 
 " 在头/源文件之间快速跳转
 Plug 'vim-scripts/a.vim'
+
+Plug 'neoclide/coc-git'
+
 
 call plug#end()
 
@@ -72,32 +73,67 @@ nnoremap <silent> <Leader>n :NERDTreeToggle <CR>
 """"""""""""" airline """""""""""""
 set laststatus=2  "永远显示状态栏
 let g:airline_theme='violet' "选择主题
+
 " table line
 let g:airline#extensions#tabline#enabled = 1   " 是否打开tabline
-let g:airline_powerline_fonts = 1 " 安装字体后 必须设置此项
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <Leader>5 <Plug>AirlineSelectPrevTab
+nmap <Leader>6 <Plug>AirlineSelectNextTab
 " tbale line 分隔符
 "let g:airline#extensions#tabline#left_sep = ' '  "separater
 "let g:airline#extensions#tabline#left_alt_sep = '|'  "separater
+
 " status line 分隔符
 let g:airline_left_sep = '▶'
 let g:airline_left_alt_sep = '❯'
 let g:airline_right_sep = '◀'
 let g:airline_right_alt_sep = '❮'
-" buffer
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <Leader>5 <Plug>AirlineSelectPrevTab
-nmap <Leader>6 <Plug>AirlineSelectNextTab
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+
+let g:airline#extensions#hunks#enabled = 1
+let g:airline#extensions#hunks#coc_git = 1
+autocmd User CocGitStatusChange {command}
 
 " statusbar 最后的[23]trailing 表示23行 末尾的文字后面有尾随的空格
 
 """"""""""""" other """""""""""""
+" gitgutter
 set updatetime=100 " gitgutter更新间隔
+" 标志符号
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_modified = '~'
+let g:gitgutter_sign_modified_removed = '#'
+" 进入就自动显示
+autocmd BufEnter * GitGutter
+autocmd VimEnter * GitGutter
+" 改动块 间跳转
+nmap 'k <Plug>(GitGutterPrevHunk)
+nmap 'j <Plug>(GitGutterNextHunk)
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('@%d *%d -%d', a, m, r)
+endfunction
+set statusline+=%{GitStatus()}
 
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
+set statusline+=%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}
+
+" ack
 let g:ackhighlight = 1 " ack高亮搜索关键词
 let g:ack_qhandler = "botright copen 15" " ack修改快速预览窗口高度为15
 
 " taglist 查看符号列表 
-nnoremap <Leader>m  :TagbarToggle <CR>
+nnoremap <Leader>m :TagbarToggle <CR>
 
 " ===================== VIM配置 =====================
 " 主题
@@ -115,6 +151,8 @@ set nofen
 " zj 向下移动，到下一个折叠的开始处，关闭的折叠也计入
 " zk 向上移动，到下一个折叠的结束处，关闭的折叠也计入
 
+" 点亮光标所在前行
+set cursorline 
 " 插件高度 main for ycm
 set pumheight=25
 " 退格可以删除：自动缩进、跨行、之前插入的
@@ -198,13 +236,13 @@ nmap <Leader>u <C-U>
 " 向上翻半屏
 nmap <Leader>d <C-D>
 " 快速切换头/源文件 需要a.vim插件支持
-nmap <Leader>a :gf <CR>
+nmap <Leader>a :A <CR>
 " 去除搜索高亮
 nmap <Leader>b :noh<CR>
 " 打开文件
 nmap <Leader>e :e<Space>
 " 打ctag
-nmap<leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
+nmap <leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
 
 "括号匹配 ESC光标向前移一格 i 进行括号里面
 inoremap ( ()<ESC>i
@@ -218,10 +256,10 @@ inoremap <C-v> <Esc>:r ~/tmp/clipboard.txt <CR>
 
 " 窗口大小调整
 " 1变低 2变高 3变窄 4变宽
-map <Leader>1 <ESC><C-W>15-
-map <Leader>2 <ESC><C-W>15+
-map <Leader>3 <ESC><C-W>15<
-map <Leader>4 <ESC><C-W>15>
+nmap <Leader>1 <ESC><C-W>15-
+nmap <Leader>2 <ESC><C-W>15+
+nmap <Leader>3 <ESC><C-W>15<
+nmap <Leader>4 <ESC><C-W>15>
 
 " 窗口移动 左 右 上 下
 nnoremap <leader>h <C-W><C-H>
@@ -233,6 +271,7 @@ nnoremap <Leader>j <C-W><C-J>
 map <Leader>r <ESC><C-W>r
 
 " ===================== YCM =====================
+" 全局文件配置
 let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
 let g:ycm_show_diagnostics_ui = 1    " 开启实时错误或者warning的检测
 let g:ycm_add_preview_to_completeopt = 0    " 关闭补全预览
@@ -244,8 +283,6 @@ set completeopt-=preview
 let g:ycm_complete_in_comments=1
 " 开启 YCM 标签补全引擎
 let g:ycm_collect_identifiers_from_tags_files=1
-" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-inoremap <leader>; <C-x><C-o>
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
 " 语法关键字补全
@@ -263,21 +300,17 @@ let g:ycm_semantic_triggers =  {
   \   'lua' : ['.', ':'],
   \   'erlang' : [':'],
   \ }
-" 错误标记
-let g:ycm_error_symbol = '✗'  "set error or warning signs
+" error标记
+let g:ycm_error_symbol = '✗'  
 " warning标记
 let g:ycm_warning_symbol = '⚠'
-"颜色
-"highlight YcmErrorSign       标记颜色
-"highlight YcmWarningSign ctermbg=none
-"highlight YcmErrorSection      代码中出错字段颜色
-highlight YcmWarningSection ctermbg=none
-"highlight YcmErrorLine        出错行颜色
-"highlight YcmWarningLine
+" 颜色
+highlight YcmErrorLine guibg=#333333
+highlight YcmWarningLine guibg=#008B8B
 
 
 " ===================== autocmd =====================
-autocmd InsertEnter * se cul    " 用浅色高亮当前行"
+""autocmd InsertEnter * 
 "花括号自动格式化，首行一个tab
 autocmd FileType cpp,java inoremap { {<CR>}<ESC>kA<CR>
 
@@ -292,11 +325,26 @@ autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ --std=c++11 -pthread '.sh
 autocmd filetype dot nnoremap <F1> :w <bar> exec '!dot -Tsvg sqlparse.dot > sqlparse.svg'<CR>
 
 
+" 进入窗口高亮 todo TODO
+augroup HiglightTODO
+    autocmd!
+    autocmd WinEnter,VimEnter * :silent! call matchadd('todo', 'TODO', -1)
+    autocmd WinEnter,VimEnter * :silent! call matchadd('todo', 'todo', -1)
+augroup END
+
+" ===================== function =====================
+
+"插入 时间
+nmap tm :call SetTime() <CR>
+func SetTime()
+        call append(line("."), "\# ".strftime('%c'))
+endfunc
+
+
 "新建.c,.h,.sh,.Java文件，自动插入文件头
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.Java,*.go exec ":call SetTitle()"
-"""定义函数SetTitle，自动插入文件头
+"插入 文件头
 func SetTitle()
-    "如果文件类型为.sh文件
     if &filetype == 'sh'
         call setline(1,"\#########################################################################")
         call append(line("."),   "\# File Name:    ".expand("%"))
@@ -316,51 +364,8 @@ func SetTitle()
         call append(line(".")+5, " ************************************************************************/")
         call append(line(".")+6, "")
     endif
-    "新建文件后，自动定位到文件末尾
+    " 新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
-endfunc
-
-
-" ===================== function =====================
-
-" shortcut for markdown
-" 创建时间快捷键for markdown
-nmap tm :call SetTime() <CR>
-func SetTime()
-        call append(line("."), "\# ".strftime('%a %d %b %Y'))
-endfunc
-
-nmap tb :call SetTable() <CR>
-func SetTable()
-        call append(line("."), "\| | | ")
-        call append(line(".")+1, "\|---|---|")
-        call append(line(".")+2, "\| | |")
-endfunc
-
-nmap pc :call SetPic() <CR>
-func SetPic()
-        call append(line("."), "\<img src='' width=600 alt=''> </img></div>")
-endfunc
-
-nmap pi :call SetPic1() <CR>
-func SetPic1()
-        call append(line("."), "\![]()")
-endfunc
-
-nmap vi :call SetVideo() <CR>
-func SetVideo()
-        call append(line("."), "\<video src='1.mp4' controls='controls' width='640' height='320' autoplay='autoplay'> Your browser does not support the video tag.</video></div>")
-endfunc
-
-nmap cl :call SetCollor() <CR>
-func SetCollor()
-        call append(line("."), "<span  style='color: #f16707;'> </span>")
-endfunc
-
-" vim cc
-nmap cc :call SetCC() <CR>
-func SetCC()
-    call append(line("."), "// vim: et tw=100 ts=4 sw=4 cc=120")
 endfunc
 
 " ===================== block =====================
@@ -372,7 +377,6 @@ if has("autocmd")
  \ exe "normal g'\"" |
 \ endif
 endif
-
 
 "onedark
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
