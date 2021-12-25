@@ -1,3 +1,6 @@
+" 定义快捷键前缀，即<Leader>
+let mapleader=";"
+
 " ===================== 教学 =====================
 " == 快捷键 map ==
 " n/i/c   nore    map    <silent>        src-cmd    dst-cmd
@@ -54,8 +57,6 @@ Plug 'vim-scripts/a.vim'
 call plug#end()
 
 """"""""""""" NERD """""""""""""
-" 定义快捷键的前缀，即<Leader>
-let mapleader=";"
 " 为剩下的唯一窗口时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q |
 " 打开文件自动关闭
@@ -64,20 +65,21 @@ let NERDTreeQuitOnOpen=1
 let NERDTreeWinPos="left"
 " 忽略的文件
 let NERDTreeIgnore=['\.vim$', '\~$', '\.o$', '\.d$', '\.a$', '\.out$', '\.tgz$']
-" 快捷键打开nerd
+" 打开快捷键
 nnoremap <silent> <Leader>n :NERDTreeToggle <CR>
 
 """"""""""""" airline """""""""""""
-set laststatus=2  "永远显示状态栏
-let g:airline_theme='violet' "选择主题
+ "永远显示状态栏
+set laststatus=2 
+ "选择主题
+let g:airline_theme='violet'
 
-" tableline(buffer)
-let g:airline#extensions#tabline#enabled = 1   " 是否打开tabline
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nnoremap q[ <Plug>AirlineSelectPrevTab
-nnoremap q] <Plug>AirlineSelectNextTab
-" 分隔符
-let g:airline#extensions#tabline#left_sep = ''
+" tableline (buffer)
+let g:airline#extensions#tabline#enabled = 1           " 是否打开tabline
+let g:airline#extensions#tabline#buffer_idx_mode = 1   " 切换模式
+nnoremap 2 <Plug>AirlineSelectPrevTab 
+nnoremap 3 <Plug>AirlineSelectNextTab
+let g:airline#extensions#tabline#left_sep = ''        " 分隔符
 let g:airline#extensions#tabline#left_alt_sep = ' ❯ '
 
 " symbol
@@ -100,36 +102,38 @@ let g:airline_symbols.branch = '⎇'''
 
 " [23]trailing 表示23行 末尾的文字后面有尾随的空格
 
-""""""""""""" other """""""""""""
-" gitgutter
-set updatetime=100 " gitgutter更新间隔
+""""""""""""" gitgutter """""""""""""
+" 更新间隔
+set updatetime=100 
 " 标志符号
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_modified = '~'
 let g:gitgutter_sign_modified_removed = '#'
-" 进入就自动显示
+" 进入自动显示
 autocmd BufEnter * GitGutter
 autocmd VimEnter * GitGutter
-" 改动块 间跳转
+" 改动 块间 跳转
 nnoremap 'k <Plug>(GitGutterPrevHunk)
 nnoremap 'j <Plug>(GitGutterNextHunk)
 
-" ack
-let g:ackhighlight = 1 " ack高亮搜索关键词
-let g:ack_qhandler = "botright copen 15" " ack修改快速预览窗口高度为15
+""""""""""""" ack """""""""""""
+" 高亮搜索关键词
+let g:ackhighlight = 1 
+" 修改快速预览窗口高度为15
+let g:ack_qhandler = "botright copen 15"
 
-" taglist 查看符号列表 
-nnoremap <Leader>m :TagbarToggle <CR>
 
+""""""""""""" tabular """""""""""""
 " tabular 对齐插件
-nnoremap <Leader>v :Tabularize /
+" nnoremap <Leader>v :Tabularize /
+
 " ===================== VIM配置 =====================
-" 主题
-" colorscheme monokai
+" 主题 ~/.vim/color
 colorscheme onedark
 
-" 基于语法高亮的代码折叠
+""""""""""""" 代码折叠 """""""""""""
+" 基于语法高亮
 set foldmethod=syntax
 " 启动vim时打开所有折叠代码。
 set nofen
@@ -140,6 +144,7 @@ set nofen
 " zj 向下移动，到下一个折叠的开始处，关闭的折叠也计入
 " zk 向上移动，到下一个折叠的结束处，关闭的折叠也计入
 
+""""""""""""" other """""""""""""
 " 点亮光标所在前行
 set cursorline 
 " 插件高度 main for ycm
@@ -233,6 +238,7 @@ filetype indent on
 
 " 禁用快捷键 需要shift+ 才能按出的
 nnoremap R <nop>
+nnoremap Q <nop>
 nnoremap T <nop>
 nnoremap S <nop>
 nnoremap F <nop>
@@ -254,26 +260,26 @@ nnoremap ? <nop>
 " 还可以用来组合其它快捷键 直接按出的
 nnoremap t <nop>
 nnoremap m <nop>
+nnoremap q <nop>
 nnoremap " <nop>
 nnoremap \ <nop>
 nnoremap , <nop>
 nnoremap . <nop>
 nnoremap ` <nop>
 
-
 " Ack搜索 不自动打开第一个文件
 nnoremap <Leader>fw :Ack! <Space>
-" AckFile搜索 不打自动开第一个文件
+" AckFile搜索 不自动打开第一个文件
 nnoremap <Leader>ff :AckFile!<Space>
 " 关闭当前窗口
 nnoremap <Leader>q :q<CR>
-" 不保存强制退出
-nnoremap <Leader>Q :q!<CR>
 " 保存
 nnoremap <Leader>w :w<CR>
-" 定义快捷键 跳转到光标所在关键词的定义处
+" 不保存强制退出
+nnoremap <Leader>Q :q!<CR>
+" 跳转到光标所在关键词的定义处
 nnoremap <Leader>gt g<C-]>
-" 定义快捷键 跳回原关键词 与 ;gr 配合使用
+" 跳回原关键词 与 ;gt 合使用
 nnoremap <Leader>gr <C-T>
 " 快速切换头/源文件 需要a.vim插件支持
 nnoremap <Leader>a :A <CR>
@@ -288,7 +294,10 @@ nnoremap e $
 " 括号匹配 
 nnoremap 1 %
 
-"括号匹配 ESC光标向前移一格 i 进行括号里面
+" taglist 查看符号列表 
+nnoremap <Leader>m :TagbarToggle <CR>
+
+" 输入括号时 括号匹配 ESC光标会向前移一格
 inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 inoremap ' ''<ESC>i
@@ -298,20 +307,22 @@ inoremap " ""<ESC>i
 vnoremap <C-c> :w! ~/tmp/clipboard.txt <CR>
 inoremap <C-v> <Esc>:r ~/tmp/clipboard.txt <CR>
 
-" 窗口大小调整
+""""""""""""" 窗口 """""""""""""
+" 大小调整
 " 1变低 2变高 3变窄 4变宽
 nnoremap <Leader>1 <ESC><C-W>15-
 nnoremap <Leader>2 <ESC><C-W>15+
 nnoremap <Leader>3 <ESC><C-W>15<
 nnoremap <Leader>4 <ESC><C-W>15>
 
-" 窗口移动 左 右 上 下
+" 移动
+" h左 l右 k上 j下
 nnoremap <leader>h <C-W><C-H>
 nnoremap <leader>l <C-W><C-L>
 nnoremap <Leader>k <C-W><C-K>
 nnoremap <Leader>j <C-W><C-J>
 
-" 窗口交换 依次向后
+" 交换 依次向后
 nnoremap <Leader>r <ESC><C-W>r
 
 " 翻页
@@ -320,12 +331,13 @@ nnoremap 'b <C-b>
 nnoremap 'u <C-u>
 nnoremap 'd <C-d>
 
-
 " ===================== YCM =====================
 " 全局文件配置
 let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
-let g:ycm_show_diagnostics_ui = 1           " 开启实时错误或者warning的检测
-let g:ycm_add_preview_to_completeopt = 0    " 关闭补全预览
+" 开启实时错误或者warning的检测
+let g:ycm_show_diagnostics_ui = 1
+" 关闭补全预览
+let g:ycm_add_preview_to_completeopt = 0 
 " 允许vim加载.ycm_extra_conf.py文件，不再提示
 let g:ycm_confirm_extra_conf = 0
 " 补全内容不以分割子窗口形式出现，只显示补全列表
@@ -359,20 +371,17 @@ let g:ycm_warning_symbol = '⚠'
 highlight YcmErrorLine guibg=#333333
 highlight YcmWarningLine guibg=#008B8B
 
-
 " ===================== autocmd =====================
-""autocmd InsertEnter * 
-"花括号自动格式化，首行一个tab
+" 花括号自动格式化，首行一个tab
 autocmd FileType cpp,java inoremap { {<CR>}<ESC>kA<CR>
 
-" vim-commentary style set 注释针对不同语言的注释方法
+" 注释针对不同语言的注释方法 需要vim-commentary插件支持
 autocmd FileType cpp set commentstring=//\ %s
 autocmd FileType php set commentstring=//\ %s
 
 " 编译快捷键
 autocmd filetype python nnoremap <F1> :w <bar> exec '!python '.shellescape('%')<CR> autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ --std=c++11 -pthread '.shellescape('%').' -o ./bin/'.shellescape('%:r').' && ./bin/'.shellescape('%:r')<CR>
-" autocmd filetype dot nnoremap <F1> :w <bar> exec '!dot -Tsvg '.shellescape('%').' > ./svg/'.shellescape('%:r').' && open ./bin/'.shellescape('%:r')<CR>
 autocmd filetype dot nnoremap <F1> :w <bar> exec '!dot -Tsvg sqlparse.dot > sqlparse.svg'<CR>
 
 " 进入窗口高亮 todo TODO
@@ -396,9 +405,8 @@ func Lorem()
         call append(line("."), "Lorem ipsum dolor sit amet, consectetur adipisicing elit d dolore magna aliqua.")
 endfunc
 
-"新建.c,.h,.sh,.Java文件，自动插入文件头
+" 自动插入文件头 .cpp .c .h .sh .java .go 
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.Java,*.go exec ":call SetTitle()"
-"插入 文件头
 func SetTitle()
     if &filetype == 'sh'
         call setline(1,"\#########################################################################")
@@ -419,9 +427,10 @@ func SetTitle()
         call append(line(".")+5, " ************************************************************************/")
         call append(line(".")+6, "")
     endif
-    " 新建文件后，自动定位到文件末尾
-    autocmd BufNewFile * normal G
 endfunc
+
+" 新建文件后 自动定位到文件末尾
+autocmd BufNewFile * normal G
 
 " ===================== block =====================
 
@@ -433,17 +442,17 @@ if has("autocmd")
 \ endif
 endif
 
-"onedark
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+" onedark
+" Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+" If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+" (see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 if (empty($TMUX))
   if (has("nvim"))
     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  " Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
   " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
   if (has("termguicolors"))
     set termguicolors
