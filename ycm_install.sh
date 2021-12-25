@@ -11,19 +11,29 @@ ycm_dir=".vim/plugged/YouCompleteMe"
 if [[ ! -d $ycm_dir ]]; then
     echo "请先进入vim 运行:PlugInstall 下载YouCompleteMe"
 else
-    python3 $ycm_dir/install.py --clang-completer --system-libclang
-    cp .ycm_extra_conf.py $ycm_dir
-    echo "\n\n[不出意外的话已经安装成功了]"
-    echo "\n\n[很有必要将~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py移到开发项目的根目录]\n\n"
+    # 报错：Undefined symbols for architecture arm64 取消下方--system-libclan注释
+    python3 $ycm_dir/install.py --clang-completer #--system-libclang
+    if [[ $? -ne 0 ]]; then
+        echo; echo;
+        echo "[ aooo 似乎未安装成功 ]"
+        echo "[ 如果你是 m1 芯片，可能会报错：Undefined symbols for architecture arm64 ]"
+        echo "[ 请取消脚本内 --system-libclang 的注释(以使用自带clang)，重新编译 ]"
+        echo "[ 其它错误请见脚本内 tips ]"
+    else
+        echo; echo;
+        echo "[ wuhu~ 安装成功啦 ]"
+        echo "[ 请将 ~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py 移到开发项目的根目录 ]"
+        cp .ycm_extra_conf.py $ycm_dir
+    fi
 fi
 
 # tips:
 
 # 遇到缺少的库去安装
-# 如果商店安装的库版本不够新，去百度下载手动编译 (可能有vim cmake等)
+# 如果商店安装的库版本太旧，需要百度下载手动编译 (可能有vim cmake等，vim可能还会要求使用python3.xx编译)
 
 
-# 可能会遇到错误提示（vim编辑界面提示Ycm server shutdown）：
+# 一个可能会遇到的错误提示（vim编辑界面提示Ycm server shutdown）：
 # 按照指引打开日志发现：/lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found
 # 这是标准库过旧导致ycm编译错误，用下面的方法重新导入需要的lib库
 #
