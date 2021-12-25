@@ -29,7 +29,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
 
 " 代码对齐
-" Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular'
 
 " 快捷键注释 行:gcc  块: gc
 Plug 'tpope/vim-commentary'
@@ -50,9 +50,6 @@ Plug 'ryanmoon-s/YouCompleteMe'
 Plug 'vim-scripts/a.vim'
 
 " TODO blame
-
-" powerline font
-Plug 'powerline/fonts'
 
 call plug#end()
 
@@ -77,20 +74,19 @@ let g:airline_theme='violet' "选择主题
 " tableline(buffer)
 let g:airline#extensions#tabline#enabled = 1   " 是否打开tabline
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <Leader>5 <Plug>AirlineSelectPrevTab
-nmap <Leader>6 <Plug>AirlineSelectNextTab
+nnoremap q[ <Plug>AirlineSelectPrevTab
+nnoremap q] <Plug>AirlineSelectNextTab
 " 分隔符
-let g:airline#extensions#tabline#left_sep = '▶'  "separater
-"let g:airline#extensions#tabline#left_alt_sep = '|'  "separater
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ' ❯ '
 
 " symbol
-let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif 
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '❯'
-let g:airline_right_sep = '◀'
+let g:airline_right_sep = '▌'
 let g:airline_right_alt_sep = '❮'
 let g:airline_symbols.linenr = ' ['
 let g:airline_symbols.maxlinenr = ']'
@@ -101,7 +97,8 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.branch = '⎇'''
-" statusbar 最后的[23]trailing 表示23行 末尾的文字后面有尾随的空格
+
+" [23]trailing 表示23行 末尾的文字后面有尾随的空格
 
 """"""""""""" other """""""""""""
 " gitgutter
@@ -115,8 +112,8 @@ let g:gitgutter_sign_modified_removed = '#'
 autocmd BufEnter * GitGutter
 autocmd VimEnter * GitGutter
 " 改动块 间跳转
-nmap 'k <Plug>(GitGutterPrevHunk)
-nmap 'j <Plug>(GitGutterNextHunk)
+nnoremap 'k <Plug>(GitGutterPrevHunk)
+nnoremap 'j <Plug>(GitGutterNextHunk)
 
 " ack
 let g:ackhighlight = 1 " ack高亮搜索关键词
@@ -125,6 +122,8 @@ let g:ack_qhandler = "botright copen 15" " ack修改快速预览窗口高度为1
 " taglist 查看符号列表 
 nnoremap <Leader>m :TagbarToggle <CR>
 
+" tabular 对齐插件
+nnoremap <Leader>v :Tabularize /
 " ===================== VIM配置 =====================
 " 主题
 " colorscheme monokai
@@ -209,30 +208,85 @@ filetype plugin on
 filetype indent on
 
 " ===================== map(快捷键) =====================
+" 实用快捷键记忆
+"
+" U 将当前行恢复至开始编辑前的样子 只缓存当前行 u撤销是上次操作可无限u
+" D 删除至行尾
+" I 行首插入
+" A 行尾插入
+" s 删除并插入
+" f + x 行内查找字符x 直接跳转
+" H 跳到当前屏幕左上角
+" L 跳到当前屏幕左下角
+" M 跳到当前屏幕中间行
+" K 跳到 当前位置的单词 的help
+" X 退格 不断删除光标左边的符号 x是删除光标上的符号
+" c cc和dd类似 但不会将光标移到下一行 而是在当前行合适的缩进位置 进入插入模式
+" C 和D类似 但删除后 会进入插入模式
+" V 行 可视模式
+" w 后一单词 b 前一单词 e 词尾
+"
+" y: yy nyy ygg yG yw y0 y$
+" 剪切 复制 [可以] -->  左接数字 || 右接跳转
+" 只能左接数字 s x
+" 可以右接跳转 y d c 
+
+" 禁用快捷键 需要shift+ 才能按出的
+nnoremap R <nop>
+nnoremap T <nop>
+nnoremap S <nop>
+nnoremap F <nop>
+nnoremap J <nop>
+nnoremap Z <nop>
+nnoremap B <nop>
+nnoremap E <nop>
+nnoremap W <nop>
+nnoremap ~ <nop>
+nnoremap ! <nop>
+nnoremap @ <nop>
+nnoremap ^ <nop>
+nnoremap & <nop>
+nnoremap ( <nop>
+nnoremap ) <nop>
+nnoremap _ <nop>
+nnoremap # <nop>
+nnoremap ? <nop>
+" 还可以用来组合其它快捷键 直接按出的
+nnoremap t <nop>
+nnoremap m <nop>
+nnoremap " <nop>
+nnoremap \ <nop>
+nnoremap , <nop>
+nnoremap . <nop>
+nnoremap ` <nop>
+
+
 " Ack搜索 不自动打开第一个文件
-map <Leader>fw :Ack! <Space>
+nnoremap <Leader>fw :Ack! <Space>
 " AckFile搜索 不打自动开第一个文件
-map <Leader>ff :AckFile!<Space>
-" 关闭当前分割窗口
-nmap <Leader>q :q<CR>
+nnoremap <Leader>ff :AckFile!<Space>
+" 关闭当前窗口
+nnoremap <Leader>q :q<CR>
+" 不保存强制退出
+nnoremap <Leader>Q :q!<CR>
 " 保存
-nmap <Leader>w :w<CR>
+nnoremap <Leader>w :w<CR>
 " 定义快捷键 跳转到光标所在关键词的定义处
-nmap <Leader>gt g<C-]>
+nnoremap <Leader>gt g<C-]>
 " 定义快捷键 跳回原关键词 与 ;gr 配合使用
-nmap <Leader>gr <C-T>
-" 向下翻半屏
-nmap <Leader>u <C-U>
-" 向上翻半屏
-nmap <Leader>d <C-D>
+nnoremap <Leader>gr <C-T>
 " 快速切换头/源文件 需要a.vim插件支持
-nmap <Leader>a :A <CR>
+nnoremap <Leader>a :A <CR>
 " 去除搜索高亮
-nmap <Leader>b :noh<CR>
+nnoremap <Leader>b :noh<CR>
 " 打开文件
-nmap <Leader>e :e<Space>
+nnoremap <Leader>e :e<Space>
 " 打ctag
-nmap <leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
+nnoremap <leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
+" 行尾
+nnoremap e $
+" 括号匹配 
+nnoremap 1 %
 
 "括号匹配 ESC光标向前移一格 i 进行括号里面
 inoremap ( ()<ESC>i
@@ -246,10 +300,10 @@ inoremap <C-v> <Esc>:r ~/tmp/clipboard.txt <CR>
 
 " 窗口大小调整
 " 1变低 2变高 3变窄 4变宽
-nmap <Leader>1 <ESC><C-W>15-
-nmap <Leader>2 <ESC><C-W>15+
-nmap <Leader>3 <ESC><C-W>15<
-nmap <Leader>4 <ESC><C-W>15>
+nnoremap <Leader>1 <ESC><C-W>15-
+nnoremap <Leader>2 <ESC><C-W>15+
+nnoremap <Leader>3 <ESC><C-W>15<
+nnoremap <Leader>4 <ESC><C-W>15>
 
 " 窗口移动 左 右 上 下
 nnoremap <leader>h <C-W><C-H>
@@ -258,14 +312,21 @@ nnoremap <Leader>k <C-W><C-K>
 nnoremap <Leader>j <C-W><C-J>
 
 " 窗口交换 依次向后
-map <Leader>r <ESC><C-W>r
+nnoremap <Leader>r <ESC><C-W>r
+
+" 翻页
+nnoremap 'f <C-f>
+nnoremap 'b <C-b>
+nnoremap 'u <C-u>
+nnoremap 'd <C-d>
+
 
 " ===================== YCM =====================
 " 全局文件配置
 let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
-let g:ycm_show_diagnostics_ui = 1    " 开启实时错误或者warning的检测
+let g:ycm_show_diagnostics_ui = 1           " 开启实时错误或者warning的检测
 let g:ycm_add_preview_to_completeopt = 0    " 关闭补全预览
-" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+" 允许vim加载.ycm_extra_conf.py文件，不再提示
 let g:ycm_confirm_extra_conf = 0
 " 补全内容不以分割子窗口形式出现，只显示补全列表
 set completeopt-=preview
@@ -314,7 +375,6 @@ autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ --std=c++11 -pthread '.sh
 " autocmd filetype dot nnoremap <F1> :w <bar> exec '!dot -Tsvg '.shellescape('%').' > ./svg/'.shellescape('%:r').' && open ./bin/'.shellescape('%:r')<CR>
 autocmd filetype dot nnoremap <F1> :w <bar> exec '!dot -Tsvg sqlparse.dot > sqlparse.svg'<CR>
 
-
 " 进入窗口高亮 todo TODO
 augroup HiglightTODO
     autocmd!
@@ -324,12 +384,17 @@ augroup END
 
 " ===================== function =====================
 
-"插入 时间
-nmap tm :call SetTime() <CR>
+" 当前位置 插入 时间
+nnoremap tm :call SetTime() <CR> 0
 func SetTime()
         call append(line("."), "\# ".strftime('%c'))
 endfunc
 
+" 当前位置 插入 lorem 凑位词
+nnoremap lm :call Lorem() <CR> 0
+func Lorem()
+        call append(line("."), "Lorem ipsum dolor sit amet, consectetur adipisicing elit d dolore magna aliqua.")
+endfunc
 
 "新建.c,.h,.sh,.Java文件，自动插入文件头
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.Java,*.go exec ":call SetTitle()"
