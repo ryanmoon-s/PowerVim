@@ -51,8 +51,7 @@ Plug 'ryanmoon-s/YouCompleteMe'
 " 在头/源文件之间快速跳转
 Plug 'vim-scripts/a.vim'
 
-Plug 'neoclide/coc-git'
-
+" TODO blame
 
 call plug#end()
 
