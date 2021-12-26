@@ -1,4 +1,4 @@
-" 定义快捷键前缀，即<Leader> 对数字无效
+" 定义快捷键前缀，即<Leader> 不要用在数字上
 let mapleader=";"
 
 " ===================== 教学 =====================
@@ -12,7 +12,7 @@ let mapleader=";"
 " <Space>  space
 " <Leader> mapleader
 
-" ===================== 插件管理 =====================
+" ===================== Plug T (插件管理) =====================
 " https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
@@ -20,43 +20,44 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" 窗口调整大小动画
-Plug 'camspiers/animate.vim'
-" 窗口自动适应大小
-Plug 'camspiers/lens.vim'
+" 窗口调整
+Plug 'camspiers/lens.vim'     " 切换窗口时 自动调整大小
+Plug 'camspiers/animate.vim'  " 窗口调整时 动画效果
 
-" 在左侧查看git提交差异
-Plug 'airblade/vim-gitgutter'
-
-" 左边文件窗口
+" 文件窗口
 Plug 'preservim/nerdtree'
 
-" 代码对齐
+" 文字对齐
 Plug 'godlygeek/tabular'
 
-" 快捷键注释 行:gcc  块: gc
+" 快捷注释 行:gcc  块: gc
 Plug 'tpope/vim-commentary'
 
-" 快捷键使用ack，前提是已经安装ack
+" 快捷使用ack 前提是已经安装ack
 Plug 'mileszs/ack.vim'
 
-" 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
-" Plug 'rdnetto/YCM-Generator'
-
-" taglist  ;m 显示tags
+" 基于ctag 用于跳转
 Plug 'preservim/tagbar'
 
-" 最强语法提示插件  sh ycm_install.sh
+" 最强补全插件  sh ycm_install.sh
 Plug 'ryanmoon-s/YouCompleteMe'
 
 " 在头/源文件之间快速跳转
 Plug 'vim-scripts/a.vim'
 
-" TODO blame
+" git插件 状态栏branch blame
+Plug 'tpope/vim-fugitive'
+
+" git插件 左侧查看变动
+Plug 'airblade/vim-gitgutter'
+
+" 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
+" Plug 'rdnetto/YCM-Generator'
 
 call plug#end()
 
-""""""""""""" NERD """""""""""""
+
+""""""""""""" NERD T """""""""""""
 " 为剩下的唯一窗口时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q |
 " 打开文件自动关闭
@@ -68,7 +69,7 @@ let NERDTreeIgnore=['\.vim$', '\~$', '\.o$', '\.d$', '\.a$', '\.out$', '\.tgz$']
 " 打开快捷键
 nnoremap <silent> <Leader>n :NERDTreeToggle <CR>
 
-""""""""""""" airline """""""""""""
+""""""""""""" airline T """""""""""""
  "永远显示状态栏
 set laststatus=2
  "选择主题
@@ -77,10 +78,19 @@ let g:airline_theme='violet'
 " tableline (buffer)
 let g:airline#extensions#tabline#enabled = 1           " 是否打开tabline
 let g:airline#extensions#tabline#buffer_idx_mode = 1   " 切换模式
-nmap [ <Plug>AirlineSelectPrevTab  " 前一个tab 只可nmap 不可nnoremap
-nmap ] <Plug>AirlineSelectNextTab  " 后一个tab
+nmap [ <Plug>AirlineSelectPrevTab                      " 前一个tab 只可nmap 不可nnoremap
+nmap ] <Plug>AirlineSelectNextTab                      " 后一个tab
 let g:airline#extensions#tabline#left_sep = ''        " 分隔符
 let g:airline#extensions#tabline#left_alt_sep = '➤'
+
+" ycm support
+let g:airline#extensions#ycm#enabled = 1
+let g:airline#extensions#ycm#error_symbol = 'E:'       " Error数量 前缀
+let g:airline#extensions#ycm#warning_symbol = 'W:'     " Warning数量 前缀
+
+" fugitive
+let g:airline#extensions#fugitiveline#enabled = 1
+let g:airline#extensions#branch#enabled = 1
 
 " symbol
 if !exists('g:airline_symbols')
@@ -96,13 +106,11 @@ let g:airline_symbols.colnr = '   ❤ '
 let g:airline_symbols.paste = '[paste]'
 let g:airline_symbols.notexists = 'Ɇ'
 let g:airline_symbols.whitespace = 'Ξ'
-
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.branch = '⎇'''
+let g:airline_symbols.branch = ' '
 
 " [23]trailing 表示23行 末尾的文字后面有尾随的空格
 
-""""""""""""" gitgutter """""""""""""
+""""""""""""" gitgutter T """""""""""""
 " 更新间隔
 set updatetime=100
 " 标志符号
@@ -117,18 +125,22 @@ autocmd VimEnter * GitGutter
 nnoremap 'k <Plug>(GitGutterPrevHunk)
 nnoremap 'j <Plug>(GitGutterNextHunk)
 
-""""""""""""" ack """""""""""""
+""""""""""""" fugitive T """""""""""""
+nnoremap <Leader>b :Git blame <CR>  
+
+
+""""""""""""" ack T """""""""""""
 " 高亮搜索关键词
 let g:ackhighlight = 1
 " 修改快速预览窗口高度为15
 let g:ack_qhandler = "botright copen 15"
 
 
-""""""""""""" tabular """""""""""""
+""""""""""""" tabular T """""""""""""
 " tabular 对齐插件
 " nnoremap <Leader>v :Tabularize /
 
-" ===================== VIM配置 =====================
+" ===================== VIM Config =====================
 " 主题 ~/.vim/color
 colorscheme onedark
 
@@ -212,7 +224,7 @@ filetype plugin on
 " 根据侦测到的不同类型采用不同的缩进格式
 filetype indent on
 
-" ===================== map(快捷键) =====================
+" ===================== map T (快捷键) =====================
 " 实用快捷键记忆
 "
 " U 将当前行恢复至开始编辑前的样子 只缓存当前行 u撤销是上次操作可无限u
@@ -263,41 +275,35 @@ nnoremap m <nop>
 nnoremap q <nop>
 nnoremap " <nop>
 nnoremap \ <nop>
-nnoremap , <nop>
+" nnoremap , <nop>
 nnoremap . <nop>
 nnoremap ` <nop>
 
-" Ack搜索 不自动打开第一个文件
-nnoremap <Leader>fw :Ack! <Space>
-" AckFile搜索 不自动打开第一个文件
-nnoremap <Leader>ff :AckFile!<Space>
+"""""""""""""" file opention T """""""""""""
 " 关闭当前窗口
 nnoremap <Leader>q :q<CR>
 " 保存
 nnoremap <Leader>w :w<CR>
 " 不保存强制退出
 nnoremap <Leader>Q :q!<CR>
-" 跳转到光标所在关键词的定义处
-nnoremap <Leader>gt g<C-]>
-" 跳回原关键词 与 ;gt 合使用
-nnoremap <Leader>gr <C-T>
 " 快速切换头/源文件 需要a.vim插件支持
 nnoremap <Leader>a :A <CR>
-" 去除搜索高亮
-nnoremap <Leader>b :noh<CR>
 " 打开文件
 nnoremap <Leader>e :e<Space>
-" 打ctag
-nnoremap <leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
+
+" Ack搜索 不自动打开第一个文件
+nnoremap <Leader>fw :Ack! <Space>
+" AckFile搜索 不自动打开第一个文件
+nnoremap <Leader>ff :AckFile!<Space>
+
+" 去除搜索高亮
+nnoremap <Leader>, :noh<CR>
 " 行尾
 nnoremap e $
 " 括号匹配
-" nnoremap 1 %
+nnoremap , %
 " source .vimrc
 nnoremap <Leader>s :source ~/.vimrc <CR>
-
-" taglist 查看符号列表
-nnoremap <Leader>m :TagbarToggle <CR>
 
 " 输入括号时 括号匹配 ESC光标会向前移一格
 inoremap ( ()<ESC>i
@@ -309,7 +315,17 @@ inoremap " ""<ESC>i
 vnoremap <C-c> :w! ~/tmp/clipboard.txt <CR>
 inoremap <C-v> <Esc>:r ~/tmp/clipboard.txt <CR>
 
-""""""""""""" 窗口 """""""""""""
+"""""""""""""" taglist T (跳转) """""""""""""
+" taglist 查看符号列表
+nnoremap <Leader>m :TagbarToggle <CR>
+" 打ctag
+nnoremap <leader>tg :!ctags -R --fields=+aS --extra=+q<CR>
+" 跳转到光标所在关键词的定义处
+nnoremap <Leader>gt g<C-]>
+" 跳回原关键词 与 ;gt 合使用
+nnoremap <Leader>gr <C-T>
+
+"""""""""""""" Window T """""""""""""
 " 大小调整
 " 1变低 2变高 3变窄 4变宽
 nnoremap <Leader>1 <ESC><C-W>15-
@@ -333,7 +349,7 @@ nnoremap 'b <C-b>
 nnoremap 'u <C-u>
 nnoremap 'd <C-d>
 
-" ===================== YCM =====================
+" ===================== YCM T =====================
 " 全局文件配置
 let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
 " 开启实时错误或者warning的检测
@@ -373,18 +389,18 @@ let g:ycm_warning_symbol = '⚠'
 highlight YcmErrorLine guibg=#333333
 highlight YcmWarningLine guibg=#008B8B
 
-" ===================== autocmd =====================
+" ===================== autocmd T =====================
 " 花括号自动格式化，首行一个tab
 autocmd FileType cpp,java inoremap { {<CR>}<ESC>kA<CR>
 
 " 注释针对不同语言的注释方法 需要vim-commentary插件支持
 autocmd FileType cpp set commentstring=//\ %s
-autocmd FileType php set commentstring=//\ %s
+autocmd FileType vim set commentstring=\"\ %s
+autocmd FileType shell set commentstring=#\ %s
 
-" 编译快捷键
+" 编译
 autocmd filetype python nnoremap <F1> :w <bar> exec '!python '.shellescape('%')<CR> autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ --std=c++11 -pthread '.shellescape('%').' -o ./bin/'.shellescape('%:r').' && ./bin/'.shellescape('%:r')<CR>
-autocmd filetype dot nnoremap <F1> :w <bar> exec '!dot -Tsvg sqlparse.dot > sqlparse.svg'<CR>
 
 " 进入窗口高亮 todo TODO
 augroup HiglightTODO
@@ -393,7 +409,7 @@ augroup HiglightTODO
     autocmd WinEnter,VimEnter * :silent! call matchadd('todo', 'todo', -1)
 augroup END
 
-" ===================== function =====================
+" ===================== function T =====================
 
 " 当前位置 插入 时间
 nnoremap tm :call SetTime() <CR> 0
@@ -402,7 +418,7 @@ func SetTime()
 endfunc
 
 " 当前位置 插入 lorem 凑位词
-nnoremap lm :call Lorem() <CR> 0
+nnoremap mm :call Lorem() <CR> 0
 func Lorem()
         call append(line("."), "Lorem ipsum dolor sit amet, consectetur adipisicing elit dolore magna aliqua.")
 endfunc
@@ -434,7 +450,7 @@ endfunc
 " 新建文件后 自动定位到文件末尾
 autocmd BufNewFile * normal G
 
-" ===================== block =====================
+" ===================== block T =====================
 
 " 重新打开文档时光标回到文档关闭前的位置
 if has("autocmd")
