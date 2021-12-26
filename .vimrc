@@ -1,8 +1,8 @@
 " 定义快捷键前缀，即<Leader> 不要用在数字上
 let mapleader=";"
 
-" ===================== 教学 =====================
-" == 快捷键 map ==
+" ==== 教学 ================================================
+" ==== map =============================
 " n/i/c   nore    map    <silent>        src-cmd    dst-cmd
 " mode    非递归  映射   不显示提示信息
 
@@ -12,8 +12,8 @@ let mapleader=";"
 " <Space>  space
 " <Leader> mapleader
 
-" ===================== Plug T (插件管理) =====================
-" https://github.com/junegunn/vim-plug
+" ==== Plug config T ===================================
+" ==== junegunn/vim-plug ===============
 call plug#begin('~/.vim/plugged')
 
 " 状态栏
@@ -56,8 +56,7 @@ Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
-
-""""""""""""" NERD T """""""""""""
+" ==== NERD T ==========================
 " 为剩下的唯一窗口时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q |
 " 打开文件自动关闭
@@ -69,10 +68,10 @@ let NERDTreeIgnore=['\.vim$', '\~$', '\.o$', '\.d$', '\.a$', '\.out$', '\.tgz$']
 " 打开快捷键
 nnoremap <silent> <Leader>n :NERDTreeToggle <CR>
 
-""""""""""""" airline T """""""""""""
- "永远显示状态栏
+" ==== airline T =======================
+" 永远显示状态栏
 set laststatus=2
- "选择主题
+" 选择主题
 let g:airline_theme='violet'
 
 " tableline (buffer)
@@ -110,7 +109,7 @@ let g:airline_symbols.branch = ' '
 
 " [23]trailing 表示23行 末尾的文字后面有尾随的空格
 
-""""""""""""" gitgutter T """""""""""""
+" ==== gitgutter T =====================
 " 更新间隔
 set updatetime=100
 " 标志符号
@@ -125,26 +124,26 @@ autocmd VimEnter * GitGutter
 nnoremap 'k <Plug>(GitGutterPrevHunk)
 nnoremap 'j <Plug>(GitGutterNextHunk)
 
-""""""""""""" fugitive T """""""""""""
+" ==== fugitive T ======================
 nnoremap <Leader>b :Git blame <CR>
 
 
-""""""""""""" ack T """""""""""""
+" ==== ack T ===========================
 " 高亮搜索关键词
 let g:ackhighlight = 1
 " 修改快速预览窗口高度为15
 let g:ack_qhandler = "botright copen 15"
 
 
-""""""""""""" tabular T """""""""""""
+" ==== tabular T =======================
 " tabular 对齐插件
 " nnoremap <Leader>v :Tabularize /
 
-" ===================== VIM Config =====================
-" 主题 ~/.vim/color
+" ==== VIM Config T =========================================
+" theme ~/.vim/color
 colorscheme onedark
 
-""""""""""""" 代码折叠 """""""""""""
+" ==== code fold ======================== 
 " 基于语法高亮
 set foldmethod=syntax
 " 启动vim时打开所有折叠代码。
@@ -156,7 +155,7 @@ set nofen
 " zj 向下移动，到下一个折叠的开始处，关闭的折叠也计入
 " zk 向上移动，到下一个折叠的结束处，关闭的折叠也计入
 
-""""""""""""" other """""""""""""
+" ==== other ===========================
 " 点亮光标所在前行
 set cursorline
 " 插件高度 main for ycm
@@ -224,7 +223,7 @@ filetype plugin on
 " 根据侦测到的不同类型采用不同的缩进格式
 filetype indent on
 
-" ===================== map T (快捷键) =====================
+" ==== map T (快捷键) ======================================
 " 实用快捷键记忆
 "
 " U 将当前行恢复至开始编辑前的样子 只缓存当前行 u撤销是上次操作可无限u
@@ -278,8 +277,9 @@ nnoremap \ <nop>
 " nnoremap , <nop>
 nnoremap . <nop>
 nnoremap ` <nop>
+nnoremap - <nop>
 
-"""""""""""""" file opention T """""""""""""
+" ==== file opention T =================
 " 关闭当前窗口
 nnoremap <Leader>q :q<CR>
 " 保存
@@ -315,7 +315,7 @@ inoremap " ""<ESC>i
 vnoremap <C-c> :w! ~/tmp/clipboard.txt <CR>
 inoremap <C-v> <Esc>:r ~/tmp/clipboard.txt <CR>
 
-"""""""""""""" taglist T (跳转) """""""""""""
+" ==== taglist T (跳转) ================
 " taglist 查看符号列表
 nnoremap <Leader>m :TagbarToggle <CR>
 " 打ctag
@@ -325,7 +325,7 @@ nnoremap <Leader>gt g<C-]>
 " 跳回原关键词 与 ;gt 合使用
 nnoremap <Leader>gr <C-T>
 
-"""""""""""""" Window T """""""""""""
+" ==== Window T ========================
 " 大小调整
 " 1变低 2变高 3变窄 4变宽
 nnoremap <Leader>1 <ESC><C-W>15-
@@ -349,7 +349,7 @@ nnoremap 'b <C-b>
 nnoremap 'u <C-u>
 nnoremap 'd <C-d>
 
-" ===================== YCM T =====================
+" ==== YCM T ===============================================
 " 全局文件配置
 let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
 " 开启实时错误或者warning的检测
@@ -389,7 +389,7 @@ let g:ycm_warning_symbol = '⚠'
 highlight YcmErrorLine guibg=#333333
 highlight YcmWarningLine guibg=#008B8B
 
-" ===================== autocmd T =====================
+" ==== autocmd T ===========================================
 " 花括号自动格式化，首行一个tab
 autocmd FileType cpp,java inoremap { {<CR>}<ESC>kA<CR>
 
@@ -409,7 +409,7 @@ augroup HiglightTODO
     autocmd WinEnter,VimEnter * :silent! call matchadd('todo', 'todo', -1)
 augroup END
 
-" ===================== function T =====================
+" ==== function T ==========================================
 
 " 当前位置 插入 时间
 nnoremap tm :call SetTime() <CR> 0
@@ -450,7 +450,7 @@ endfunc
 " 新建文件后 自动定位到文件末尾
 autocmd BufNewFile * normal G
 
-" ===================== block T =====================
+" ==== block T =============================================
 
 " 重新打开文档时光标回到文档关闭前的位置
 if has("autocmd")
