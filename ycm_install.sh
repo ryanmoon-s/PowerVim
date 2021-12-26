@@ -12,7 +12,7 @@ if [[ ! -d $ycm_dir ]]; then
     echo "请先进入vim 运行:PlugInstall 下载YouCompleteMe"
 else
     # 报错：Undefined symbols for architecture arm64 取消下方--system-libclang注释
-    python3 $ycm_dir/install.py --clang-completer     #--system-libclang
+    python3 $ycm_dir/install.py --clang-completer     --system-libclang
     if [[ $? -ne 0 ]]; then
         echo; echo
         echo "[ aooo 似乎未安装成功 ]"

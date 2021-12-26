@@ -1,3 +1,7 @@
+#####################################################
+# forkd from youngyangyang04/PowerVim ; then custom #
+#####################################################
+
 #!/bin/bash
 function digitaldatetime() {
     echo `date +"%Y%m%d%H%M%S"`

@@ -1,9 +1,9 @@
-# [English Version](./docs/README-en.md)
- 
 # 说明 
-  
- == DIY 自 大神 程序员Carl == 
-  
+# forkd from youngyangyang04/PowerVim ; then custom 
+
+
+
+
 # PowerVim
  
 这套vim配置我已经打磨了将近四年，不断调整优化，已经可以完全满足工业级打开的需求了。所以我给它起名为PowerVim，一个真正强大的vim。
