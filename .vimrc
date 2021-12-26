@@ -126,7 +126,7 @@ nnoremap 'k <Plug>(GitGutterPrevHunk)
 nnoremap 'j <Plug>(GitGutterNextHunk)
 
 """"""""""""" fugitive T """""""""""""
-nnoremap <Leader>b :Git blame <CR>  
+nnoremap <Leader>b :Git blame <CR>
 
 
 """"""""""""" ack T """""""""""""
