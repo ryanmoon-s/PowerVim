@@ -2,12 +2,17 @@
 let mapleader=";"
 
 " ==== 主题 ================================================
-" purple
-colorscheme onedark            " vim theme: ~/vim/color
-let g:airline_theme='violet'   " airline theme
+" 紫色
+" set background=dark
+" colorscheme onedark            " vim theme: ~/vim/color
+" let g:airline_theme='violet'   " airline theme
 
+" 灰蓝 airline theme will be load automatically
+set background=dark
+colorscheme solarized
 
 " ==== 教学 ================================================
+" ==== map =============================
 " n/i/c   nore    map    <silent>        src-cmd    dst-cmd
 " mode    非递归  映射   不显示提示信息
 
@@ -16,6 +21,9 @@ let g:airline_theme='violet'   " airline theme
 " <C-w>    Ctrl + w 可跟大写
 " <Space>  space
 " <Leader> mapleader
+
+" <Plug> 类型的不能加 nore 否则不起作用
+" 不要用 已经被map的键 如hjkl 会产生副作用
 
 " ==== Plug config T =======================================
 " ==== junegunn/vim-plug ===============
@@ -64,6 +72,8 @@ Plug 'psliwka/vim-smoothie'
 
 " 文字对齐
 " Plug 'godlygeek/tabular'
+
+Plug 'altercation/vim-colors-solarized', {'do': 'mv colors/solarized.vim ~/.vim/colors'}
 
 call plug#end()
 
@@ -143,8 +153,21 @@ let g:ackhighlight = 1
 let g:ack_qhandler = "botright copen 15"
 
 
-" ==== c a T ===========================
+" ==== ctrlp T =========================
+" 寻找目录：c 当前文件所在目录 
+let g:ctrlp_working_path_mode = 'c'
+" 最大查找深度
+let g:ctrlp_max_depth = 10
 
+" <C-o>  选择打开方式
+" <C-c>  退出
+" <C-k>  向上选择
+" <C-j>  向下选择
+" <C-y>  输入不存在的文件 会打开这个文件
+" ..<CR> 跳转到上级目录 ...<CR> 上上级 类推
+
+" 另外两个模式 :CtrlPBuffer(buffer) :CtrlPMRU(most recently used)
+" 可自行map
 
 " ==== VIM Config T =========================================
 " ==== code fold ======================== 
