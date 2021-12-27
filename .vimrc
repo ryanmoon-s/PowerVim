@@ -1,8 +1,13 @@
 " 定义快捷键前缀，即<Leader> 不要用在数字上
 let mapleader=";"
 
+" ==== 主题 ================================================
+" purple
+colorscheme onedark            " vim theme: ~/vim/color
+let g:airline_theme='violet'   " airline theme
+
+
 " ==== 教学 ================================================
-" ==== map =============================
 " n/i/c   nore    map    <silent>        src-cmd    dst-cmd
 " mode    非递归  映射   不显示提示信息
 
@@ -12,7 +17,7 @@ let mapleader=";"
 " <Space>  space
 " <Leader> mapleader
 
-" ==== Plug config T ===================================
+" ==== Plug config T =======================================
 " ==== junegunn/vim-plug ===============
 call plug#begin('~/.vim/plugged')
 
@@ -51,6 +56,9 @@ Plug 'tpope/vim-fugitive'
 " git插件 左侧查看变动
 Plug 'airblade/vim-gitgutter'
 
+" 文件模糊搜索 ctrl + p
+Plug 'ctrlpvim/ctrlp.vim'
+
 " 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
 " Plug 'rdnetto/YCM-Generator'
 
@@ -71,14 +79,11 @@ nnoremap <silent> <Leader>n :NERDTreeToggle <CR>
 " ==== airline T =======================
 " 永远显示状态栏
 set laststatus=2
-" 选择主题
-let g:airline_theme='violet'
-
 " tableline (buffer)
 let g:airline#extensions#tabline#enabled = 1           " 是否打开tabline
 let g:airline#extensions#tabline#buffer_idx_mode = 1   " 切换模式
-nmap [ <Plug>AirlineSelectPrevTab                      " 前一个tab 只可nmap 不可nnoremap
-nmap ] <Plug>AirlineSelectNextTab                      " 后一个tab
+nmap <Leader>5 <Plug>AirlineSelectPrevTab                      " 前一个tab 只可nmap 不可nnoremap
+nmap <Leader>6 <Plug>AirlineSelectNextTab                      " 后一个tab
 let g:airline#extensions#tabline#left_sep = ''        " 分隔符
 let g:airline#extensions#tabline#left_alt_sep = '➤'
 
@@ -140,9 +145,6 @@ let g:ack_qhandler = "botright copen 15"
 " nnoremap <Leader>v :Tabularize /
 
 " ==== VIM Config T =========================================
-" theme ~/.vim/color
-colorscheme onedark
-
 " ==== code fold ======================== 
 " 基于语法高亮
 set foldmethod=syntax
@@ -268,6 +270,9 @@ nnoremap ) <nop>
 nnoremap _ <nop>
 nnoremap # <nop>
 nnoremap ? <nop>
+
+" 未解之迷 [ ]
+
 " 还可以用来组合其它快捷键 直接按出的
 nnoremap t <nop>
 nnoremap m <nop>
