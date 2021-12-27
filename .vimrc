@@ -179,8 +179,6 @@ set history=50
 set ruler
 " 显示未完成的命令
 set showcmd
-" 增量搜索 increase search 边输入边搜索
-set incsearch
 "设置非兼容vi模式
 set nocompatible
 " 不产生.swp文件
@@ -199,9 +197,6 @@ set expandtab
 set selectmode=mouse,key
 " 选择模式
 set selection=exclusive
-" 搜索时大小写不敏感
-set ignorecase "设置默认大小写不敏感查找
-set smartcase "如果有大小写字母，则切换到大小写敏感查找
 " tags搜索路径
 set tags=./.tags;,.tags "在每个目录下如果找不到tags就到上一层目录去找
 " 编码
@@ -210,20 +205,27 @@ set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 " set modeline
 set modeline
-" 搜索关键词高亮
-set hlsearch
 " 开启语义分析
 syntax enable
 " 语法高亮
 syntax on
 " 不显示打开文件时的提示
 set shortmess=atI
+
 " 开启文件类型侦测
 filetype on
 " 根据侦测到的不同类型加载对应的插件
 filetype plugin on
 " 根据侦测到的不同类型采用不同的缩进格式
 filetype indent on
+
+" 搜索关键词高亮
+set hlsearch
+" 增量搜索 increase search 边输入边搜索
+set incsearch
+" 搜索时大小写不敏感
+set ignorecase "设置默认大小写不敏感查找
+set smartcase  "如果有大写字母，则切换到大小写敏感查找
 
 " ==== map T (快捷键) ======================================
 " 实用快捷键记忆
@@ -386,11 +388,13 @@ let g:ycm_semantic_triggers =  {
   \   'lua' : ['.', ':'],
   \   'erlang' : [':'],
   \ }
+" 是否开启诊断符号显示
+let g:ycm_enable_diagnostic_signs = 0
 " error标记
 let g:ycm_error_symbol = '✗'
 " warning标记
 let g:ycm_warning_symbol = '⚠'
-" 颜色
+" 行颜色
 highlight YcmErrorLine guibg=#333333
 highlight YcmWarningLine guibg=#008B8B
 
