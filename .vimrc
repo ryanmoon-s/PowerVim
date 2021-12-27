@@ -2,14 +2,13 @@
 let mapleader=";"
 
 " ==== 主题 ================================================
-" 紫色
+" 暗紫
 " set background=dark
-" colorscheme onedark            " vim theme: ~/vim/color
-" let g:airline_theme='violet'   " airline theme
+" colorscheme onedark                   " vim theme: ~/vim/color
 
-" 灰蓝 airline theme will be load automatically
+" 橙灰
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
 
 " ==== 教学 ================================================
 " ==== map =============================
@@ -67,13 +66,15 @@ Plug 'ctrlpvim/ctrlp.vim'
 " 使ctrl + d 翻页画面过渡流畅
 Plug 'psliwka/vim-smoothie'
 
+" vim 主题
+Plug 'morhetz/gruvbox', {'do': 'cp colors/gruvbox.vim ~/.vim/colors'}
+Plug 'joshdick/onedark.vim', {'do': 'cp colors/onedark.vim ~/.vim/colors \| cp autoload/onedark.vim ~/.vim/autoload'}
+
 " 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
 " Plug 'rdnetto/YCM-Generator'
 
 " 文字对齐
 " Plug 'godlygeek/tabular'
-
-Plug 'altercation/vim-colors-solarized', {'do': 'mv colors/solarized.vim ~/.vim/colors'}
 
 call plug#end()
 
@@ -417,8 +418,8 @@ let g:ycm_semantic_triggers =  {
   \   'lua' : ['.', ':'],
   \   'erlang' : [':'],
   \ }
-" 是否开启诊断符号显示 为了不与gitgutter冲突 关闭
-let g:ycm_enable_diagnostic_signs = 0
+" 是否开启ycm诊断符号显示 为了不与gitgutter冲突 关闭
+let g:ycm_enable_diagnostic_signs = 0 
 " error 符号
 let g:ycm_error_symbol = '✗'
 " warning 符号
