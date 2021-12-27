@@ -32,9 +32,6 @@ Plug 'camspiers/animate.vim'  " 窗口调整时 动画效果
 " 文件窗口
 Plug 'preservim/nerdtree'
 
-" 文字对齐
-Plug 'godlygeek/tabular'
-
 " 快捷注释 行:gcc  块: gc
 Plug 'tpope/vim-commentary'
 
@@ -59,8 +56,14 @@ Plug 'airblade/vim-gitgutter'
 " 文件模糊搜索 ctrl + p
 Plug 'ctrlpvim/ctrlp.vim'
 
+" 使ctrl + d 翻页画面过渡流畅
+Plug 'psliwka/vim-smoothie'
+
 " 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
 " Plug 'rdnetto/YCM-Generator'
+
+" 文字对齐
+" Plug 'godlygeek/tabular'
 
 call plug#end()
 
@@ -82,7 +85,7 @@ set laststatus=2
 " tableline (buffer)
 let g:airline#extensions#tabline#enabled = 1           " 是否打开tabline
 let g:airline#extensions#tabline#buffer_idx_mode = 1   " 切换模式
-nmap <Leader>5 <Plug>AirlineSelectPrevTab                      " 前一个tab 只可nmap 不可nnoremap
+nmap <Leader>5 <Plug>AirlineSelectPrevTab                      " 前一个tab <Plug>类型的只可nmap
 nmap <Leader>6 <Plug>AirlineSelectNextTab                      " 后一个tab
 let g:airline#extensions#tabline#left_sep = ''        " 分隔符
 let g:airline#extensions#tabline#left_alt_sep = '➤'
@@ -140,9 +143,8 @@ let g:ackhighlight = 1
 let g:ack_qhandler = "botright copen 15"
 
 
-" ==== tabular T =======================
-" tabular 对齐插件
-" nnoremap <Leader>v :Tabularize /
+" ==== c a T ===========================
+
 
 " ==== VIM Config T =========================================
 " ==== code fold ======================== 
@@ -351,10 +353,14 @@ nnoremap <Leader>j <C-W><C-J>
 nnoremap <Leader>r <ESC><C-W>r
 
 " 翻页
-nnoremap 'f <C-f>
-nnoremap 'b <C-b>
-nnoremap 'u <C-u>
-nnoremap 'd <C-d>
+" 使smmoothie可以绑定自己的快捷键
+let g:smoothie_no_default_mappings = 1
+nmap 'f <Plug>(SmoothieForwards)
+nmap 'b <Plug>(SmoothieBackwards)
+nmap 'u <Plug>(SmoothieUpwards)
+nmap 'd <Plug>(SmoothieDownwards)
+nmap gg <Plug>(Smoothie_gg)
+nmap G  <Plug>(Smoothie_G)
 
 " ==== YCM T ===============================================
 " 全局文件配置
@@ -388,11 +394,11 @@ let g:ycm_semantic_triggers =  {
   \   'lua' : ['.', ':'],
   \   'erlang' : [':'],
   \ }
-" 是否开启诊断符号显示
+" 是否开启诊断符号显示 为了不与gitgutter冲突 关闭
 let g:ycm_enable_diagnostic_signs = 0
-" error标记
+" error 符号
 let g:ycm_error_symbol = '✗'
-" warning标记
+" warning 符号
 let g:ycm_warning_symbol = '⚠'
 " 行颜色
 highlight YcmErrorLine guibg=#333333
