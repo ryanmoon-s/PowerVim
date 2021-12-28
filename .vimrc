@@ -33,49 +33,49 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " 窗口调整
-    Plug 'camspiers/lens.vim'     " 切换窗口时 自动调整大小
-    Plug 'camspiers/animate.vim'  " 窗口调整时 动画效果
+Plug 'camspiers/lens.vim'     " 切换窗口时 自动调整大小
+Plug 'camspiers/animate.vim'  " 窗口调整时 动画效果
 
-    " 文件窗口
-    Plug 'preservim/nerdtree'
+" 文件窗口
+Plug 'preservim/nerdtree'
 
-    " 快捷注释 行:gcc  块: gc
-    Plug 'tpope/vim-commentary'
+" 快捷注释 行:gcc  块: gc
+Plug 'tpope/vim-commentary'
 
-    " 快捷使用ack 前提是已经安装ack
-    Plug 'mileszs/ack.vim'
+" 快捷使用ack 前提是已经安装ack
+Plug 'mileszs/ack.vim'
 
-    " 基于ctag 用于跳转
-    Plug 'preservim/tagbar'
+" 基于ctag 用于跳转
+Plug 'preservim/tagbar'
 
-    " 语法补全  sh ycm_install.sh
-    Plug 'ryanmoon-s/YouCompleteMe'
+" 语法补全  sh ycm_install.sh
+Plug 'ryanmoon-s/YouCompleteMe'
 
-    " LSC
-    " Plug 'prabirshrestha/vim-lsp'
-    " " 帮助安装LS  :LspInstallServer
-    " Plug 'mattn/vim-lsp-settings'
-    " " 异步补全
-    " Plug 'prabirshrestha/asyncomplete.vim'
+" LSC
+" Plug 'prabirshrestha/vim-lsp'
+" " 帮助安装LS  :LspInstallServer
+" Plug 'mattn/vim-lsp-settings'
+" " 异步补全
+" Plug 'prabirshrestha/asyncomplete.vim'
 
-    " 在头/源文件之间快速跳转
-    Plug 'vim-scripts/a.vim'
+" 在头/源文件之间快速跳转
+Plug 'vim-scripts/a.vim'
 
-    " git插件 状态栏branch blame
-    Plug 'tpope/vim-fugitive'
+" git插件 状态栏branch blame
+Plug 'tpope/vim-fugitive'
 
-    " git插件 左侧查看变动
-    Plug 'airblade/vim-gitgutter'
+" git插件 左侧查看变动
+Plug 'airblade/vim-gitgutter'
 
-    " 文件模糊搜索 ctrl + p
-    Plug 'ctrlpvim/ctrlp.vim'
+" 文件模糊搜索 ctrl + p
+Plug 'ctrlpvim/ctrlp.vim'
 
-    " 使ctrl + d 翻页画面过渡流畅
-    Plug 'psliwka/vim-smoothie'
+" 使ctrl + d 翻页画面过渡流畅
+Plug 'psliwka/vim-smoothie'
 
-    " vim 主题 包含airline主题
-    Plug 'morhetz/gruvbox', {'do': 'cp colors/gruvbox.vim ~/.vim/colors'}
-    Plug 'joshdick/onedark.vim', {'do': 'cp colors/onedark.vim ~/.vim/colors \| cp autoload/onedark.vim ~/.vim/autoload'}
+" vim 主题 包含airline主题
+Plug 'morhetz/gruvbox', {'do': 'cp colors/gruvbox.vim ~/.vim/colors'}
+Plug 'joshdick/onedark.vim', {'do': 'cp colors/onedark.vim ~/.vim/colors \| cp autoload/onedark.vim ~/.vim/autoload'}
 
 " 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
 " Plug 'rdnetto/YCM-Generator'
@@ -100,12 +100,12 @@ nnoremap <silent> <Leader>n :NERDTreeToggle <CR>
 " ==== airline T =======================
 " 永远显示状态栏
 set laststatus=2
-" tableline (buffer)
-let g:airline#extensions#tabline#enabled = 1           " 是否打开tabline
-let g:airline#extensions#tabline#buffer_idx_mode = 1   " 切换模式
-nmap <Leader>3 <Plug>AirlineSelectPrevTab              " 前一个tab <Plug>类型的只可nmap
-nmap <Leader>4 <Plug>AirlineSelectNextTab              " 后一个tab
-let g:airline#extensions#tabline#left_sep = ''        " 分隔符
+" tab line
+let g:airline#extensions#tabline#enabled = 1              " 是否打开tabline
+let g:airline#extensions#tabline#buffer_idx_mode = 1      " 切换模式
+nmap <Leader>1 <Plug>AirlineSelectPrevTab                 " 前一个tab <Plug>类型的只可nmap
+nmap <Leader>2 <Plug>AirlineSelectNextTab                 " 后一个tab
+let g:airline#extensions#tabline#left_sep = ''           " 分隔符
 let g:airline#extensions#tabline#left_alt_sep = '➤'
 
 " ale support
@@ -404,6 +404,7 @@ nnoremap <Leader>fw :Ack! <Space>
 " AckFile搜索 不自动打开第一个文件
 nnoremap <Leader>ff :AckFile!<Space>
 
+" ==== other map T =====================
 " 去除搜索高亮
 nnoremap <Leader>, :noh<CR>
 " 行尾
@@ -423,6 +424,10 @@ inoremap " ""<ESC>i
 vnoremap <C-c> :w! ~/tmp/clipboard.txt <CR>
 inoremap <C-v> <Esc>:r ~/tmp/clipboard.txt <CR>
 
+" 会话 记录当前vim所有状态
+nnoremap <Leader>[ :mksession! session.vim  <CR>
+nnoremap <Leader>] :source session.vim      <CR>   " 可在未进入vim时输入 vim -S session.vim
+
 " ==== taglist T (跳转) ================
 " taglist 查看符号列表
 nnoremap <Leader>m :TagbarToggle <CR>
@@ -435,9 +440,10 @@ nnoremap <Leader>gr <C-T>
 
 " ==== Window T ========================
 " 窗口大小调整
-" 1变低 2变高
-nnoremap <Leader>1 <ESC><C-W>15+
-nnoremap <Leader>2 <ESC><C-W>15>
+" 高
+" nnoremap <Leader>1 <ESC><C-W>15+
+" 大
+nnoremap t <ESC><C-W>15>
 
 " 窗口移动
 " h左 l右 k上 j下
