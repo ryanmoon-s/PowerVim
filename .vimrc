@@ -450,8 +450,8 @@ nmap <Leader>f <Plug>(SmoothieForwards)
 nmap <Leader>b <Plug>(SmoothieBackwards)
 nmap <Leader>u <Plug>(SmoothieUpwards)
 nmap <Leader>d <Plug>(SmoothieDownwards)
-nmap gg <Plug>(Smoothie_gg)
-nmap G  <Plug>(Smoothie_G)
+" nmap gg <Plug>(Smoothie_gg)    " 大文件太卡
+" nmap G  <Plug>(Smoothie_G)
 
 " ==== autocmd T ===========================================
 " 花括号自动格式化，首行一个tab
