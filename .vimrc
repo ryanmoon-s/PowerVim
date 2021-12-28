@@ -4,7 +4,7 @@ let mapleader=";"
 " ==== 主题 ================================================
 " 暗紫
 " set background=dark
-" colorscheme onedark                   " vim theme: ~/vim/color
+" colorscheme onedark
 
 " 橙灰
 set background=dark
@@ -33,42 +33,49 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " 窗口调整
-Plug 'camspiers/lens.vim'     " 切换窗口时 自动调整大小
-Plug 'camspiers/animate.vim'  " 窗口调整时 动画效果
+    Plug 'camspiers/lens.vim'     " 切换窗口时 自动调整大小
+    Plug 'camspiers/animate.vim'  " 窗口调整时 动画效果
 
-" 文件窗口
-Plug 'preservim/nerdtree'
+    " 文件窗口
+    Plug 'preservim/nerdtree'
 
-" 快捷注释 行:gcc  块: gc
-Plug 'tpope/vim-commentary'
+    " 快捷注释 行:gcc  块: gc
+    Plug 'tpope/vim-commentary'
 
-" 快捷使用ack 前提是已经安装ack
-Plug 'mileszs/ack.vim'
+    " 快捷使用ack 前提是已经安装ack
+    Plug 'mileszs/ack.vim'
 
-" 基于ctag 用于跳转
-Plug 'preservim/tagbar'
+    " 基于ctag 用于跳转
+    Plug 'preservim/tagbar'
 
-" 最强补全插件  sh ycm_install.sh
-Plug 'ryanmoon-s/YouCompleteMe'
+    " 语法补全  sh ycm_install.sh
+    Plug 'ryanmoon-s/YouCompleteMe'
 
-" 在头/源文件之间快速跳转
-Plug 'vim-scripts/a.vim'
+    " LSC
+    " Plug 'prabirshrestha/vim-lsp'
+    " " 帮助安装LS  :LspInstallServer
+    " Plug 'mattn/vim-lsp-settings'
+    " " 异步补全
+    " Plug 'prabirshrestha/asyncomplete.vim'
 
-" git插件 状态栏branch blame
-Plug 'tpope/vim-fugitive'
+    " 在头/源文件之间快速跳转
+    Plug 'vim-scripts/a.vim'
 
-" git插件 左侧查看变动
-Plug 'airblade/vim-gitgutter'
+    " git插件 状态栏branch blame
+    Plug 'tpope/vim-fugitive'
 
-" 文件模糊搜索 ctrl + p
-Plug 'ctrlpvim/ctrlp.vim'
+    " git插件 左侧查看变动
+    Plug 'airblade/vim-gitgutter'
 
-" 使ctrl + d 翻页画面过渡流畅
-Plug 'psliwka/vim-smoothie'
+    " 文件模糊搜索 ctrl + p
+    Plug 'ctrlpvim/ctrlp.vim'
 
-" vim 主题
-Plug 'morhetz/gruvbox', {'do': 'cp colors/gruvbox.vim ~/.vim/colors'}
-Plug 'joshdick/onedark.vim', {'do': 'cp colors/onedark.vim ~/.vim/colors \| cp autoload/onedark.vim ~/.vim/autoload'}
+    " 使ctrl + d 翻页画面过渡流畅
+    Plug 'psliwka/vim-smoothie'
+
+    " vim 主题 包含airline主题
+    Plug 'morhetz/gruvbox', {'do': 'cp colors/gruvbox.vim ~/.vim/colors'}
+    Plug 'joshdick/onedark.vim', {'do': 'cp colors/onedark.vim ~/.vim/colors \| cp autoload/onedark.vim ~/.vim/autoload'}
 
 " 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
 " Plug 'rdnetto/YCM-Generator'
@@ -96,17 +103,15 @@ set laststatus=2
 " tableline (buffer)
 let g:airline#extensions#tabline#enabled = 1           " 是否打开tabline
 let g:airline#extensions#tabline#buffer_idx_mode = 1   " 切换模式
-nmap <Leader>5 <Plug>AirlineSelectPrevTab                      " 前一个tab <Plug>类型的只可nmap
-nmap <Leader>6 <Plug>AirlineSelectNextTab                      " 后一个tab
+nmap <Leader>3 <Plug>AirlineSelectPrevTab              " 前一个tab <Plug>类型的只可nmap
+nmap <Leader>4 <Plug>AirlineSelectNextTab              " 后一个tab
 let g:airline#extensions#tabline#left_sep = ''        " 分隔符
 let g:airline#extensions#tabline#left_alt_sep = '➤'
 
-" ycm support
-let g:airline#extensions#ycm#enabled = 1
-let g:airline#extensions#ycm#error_symbol = 'E:'       " Error数量 前缀
-let g:airline#extensions#ycm#warning_symbol = 'W:'     " Warning数量 前缀
+" ale support
+let g:airline#extensions#ale#enabled = 1
 
-" fugitive
+" fugitive support
 let g:airline#extensions#fugitiveline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 
@@ -126,7 +131,7 @@ let g:airline_symbols.notexists = 'Ɇ'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_symbols.branch = ' '
 
-" [23]trailing 表示23行 末尾的文字后面有尾随的空格
+" statusline trailing  末尾的文字后面有尾随的空格
 
 " ==== gitgutter T =====================
 " 更新间隔
@@ -140,11 +145,11 @@ let g:gitgutter_sign_modified_removed = '#'
 autocmd BufEnter * GitGutter
 autocmd VimEnter * GitGutter
 " 改动 块间 跳转
-nnoremap 'k <Plug>(GitGutterPrevHunk)
-nnoremap 'j <Plug>(GitGutterNextHunk)
+nmap 'k <Plug>(GitGutterPrevHunk)
+nmap 'j <Plug>(GitGutterNextHunk)
 
 " ==== fugitive T ======================
-nnoremap <Leader>b :Git blame <CR>
+nnoremap <Leader>v :Git blame <CR>
 
 
 " ==== ack T ===========================
@@ -169,6 +174,75 @@ let g:ctrlp_max_depth = 10
 
 " 另外两个模式 :CtrlPBuffer(buffer) :CtrlPMRU(most recently used)
 " 可自行map
+
+" ==== al T =========================
+" let g:asyncomplete_auto_completeopt = 0
+" set completeopt=menuone,noinsert,noselect,preview
+
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+" if executable('clangd')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'clangd',
+"         \ 'cmd': {server_info->['clangd']},
+"         \ 'allowlist': ['cpp'],
+"         \ })
+" endif
+
+" function s:completor(opt, ctx)
+"   call mylanguage#get_async_completions({candidates, startcol -> asyncomplete#complete(a:opt['name'], a:ctx, startcol, candidates) })
+" endfunction
+
+" " 补全引擎
+" au User asyncomplete_setup call asyncomplete#register_source({
+"     \ 'name': 'mylanguage',
+"     \ 'allowlist': ['*'],
+"     \ 'completor': function('s:completor'),
+"     \ })
+
+" ==== ycm T ========================
+" 全局文件配置
+let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
+" 关闭补全预览
+let g:ycm_add_preview_to_completeopt = 0
+" 允许vim加载.ycm_extra_conf.py文件，不再提示
+let g:ycm_confirm_extra_conf = 0
+" 补全内容不以分割子窗口形式出现，只显示补全列表
+set completeopt-=preview
+" 补全功能在注释中同样有效
+let g:ycm_complete_in_comments=1
+" 开启 YCM 标签补全引擎
+let g:ycm_collect_identifiers_from_tags_files=1
+" 从第一个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=1
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+  \             're!\[.*\]\s'],
+  \   'ocaml' : ['.', '#'],
+  \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'ruby' : ['.', '::'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
+" error 符号
+let g:ycm_error_symbol = '✗'
+" warning 符号
+let g:ycm_warning_symbol = '⚠'
+" 行颜色
+highlight YcmErrorLine guibg=#333333
+highlight YcmWarningLine guibg=#008B8B
+" 关闭实时语法检测
+let g:ycm_enable_diagnostic_signs = 0 
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_enable_diagnostic_highlighting = 0
 
 " ==== VIM Config T =========================================
 " ==== code fold ======================== 
@@ -277,6 +351,7 @@ set smartcase  "如果有大写字母，则切换到大小写敏感查找
 " 只能左接数字 s x
 " 可以右接跳转 y d c
 
+" ==== ban map T =======================
 " 禁用快捷键 需要shift+ 才能按出的
 nnoremap R <nop>
 nnoremap Q <nop>
@@ -335,7 +410,7 @@ nnoremap <Leader>, :noh<CR>
 nnoremap e $
 " 括号匹配
 nnoremap , %
-" source .vimrc
+"r source .vimrc
 nnoremap <Leader>s :source ~/.vimrc <CR>
 
 " 输入括号时 括号匹配 ESC光标会向前移一格
@@ -359,78 +434,34 @@ nnoremap <Leader>gt g<C-]>
 nnoremap <Leader>gr <C-T>
 
 " ==== Window T ========================
-" 大小调整
-" 1变低 2变高 3变窄 4变宽
-nnoremap <Leader>1 <ESC><C-W>15-
-nnoremap <Leader>2 <ESC><C-W>15+
-nnoremap <Leader>3 <ESC><C-W>15<
-nnoremap <Leader>4 <ESC><C-W>15>
+" 窗口大小调整
+" 1变低 2变高
+nnoremap <Leader>1 <ESC><C-W>15+
+nnoremap <Leader>2 <ESC><C-W>15>
 
-" 移动
+" 窗口移动
 " h左 l右 k上 j下
 nnoremap <leader>h <C-W><C-H>
 nnoremap <leader>l <C-W><C-L>
 nnoremap <Leader>k <C-W><C-K>
 nnoremap <Leader>j <C-W><C-J>
 
-" 交换 依次向后
+" 窗口交换 针对sp分屏 依次向后
 nnoremap <Leader>r <ESC><C-W>r
 
-" 翻页
+" 使用smoothie顺滑翻页
 " 使smmoothie可以绑定自己的快捷键
 let g:smoothie_no_default_mappings = 1
-nmap 'f <Plug>(SmoothieForwards)
-nmap 'b <Plug>(SmoothieBackwards)
-nmap 'u <Plug>(SmoothieUpwards)
-nmap 'd <Plug>(SmoothieDownwards)
+nmap <Leader>f <Plug>(SmoothieForwards)
+nmap <Leader>b <Plug>(SmoothieBackwards)
+nmap <Leader>u <Plug>(SmoothieUpwards)
+nmap <Leader>d <Plug>(SmoothieDownwards)
 nmap gg <Plug>(Smoothie_gg)
 nmap G  <Plug>(Smoothie_G)
 
-" ==== YCM T ===============================================
-" 全局文件配置
-let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
-" 开启实时错误或者warning的检测
-let g:ycm_show_diagnostics_ui = 1
-" 关闭补全预览
-let g:ycm_add_preview_to_completeopt = 0
-" 允许vim加载.ycm_extra_conf.py文件，不再提示
-let g:ycm_confirm_extra_conf = 0
-" 补全内容不以分割子窗口形式出现，只显示补全列表
-set completeopt-=preview
-" 补全功能在注释中同样有效
-let g:ycm_complete_in_comments=1
-" 开启 YCM 标签补全引擎
-let g:ycm_collect_identifiers_from_tags_files=1
-" 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
-" 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.','re![_a-zA-z0-9]'],
-  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-  \             're!\[.*\]\s'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'ruby' : ['.', '::'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \ }
-" 是否开启ycm诊断符号显示 为了不与gitgutter冲突 关闭
-let g:ycm_enable_diagnostic_signs = 0 
-" error 符号
-let g:ycm_error_symbol = '✗'
-" warning 符号
-let g:ycm_warning_symbol = '⚠'
-" 行颜色
-highlight YcmErrorLine guibg=#333333
-highlight YcmWarningLine guibg=#008B8B
-
 " ==== autocmd T ===========================================
 " 花括号自动格式化，首行一个tab
-autocmd FileType cpp,java inoremap { {<CR>}<ESC>kA<CR>
+autocmd FileType cpp inoremap { {<CR>}<ESC>kA<CR>
 
 " 注释针对不同语言的注释方法 需要vim-commentary插件支持
 autocmd FileType cpp set commentstring=//\ %s
