@@ -22,7 +22,8 @@ colorscheme gruvbox
 " <Leader> mapleader
 
 " <Plug> 类型的不能加 nore 否则不起作用
-" 不要用 已经被map的键 如hjkl 会产生副作用
+" 绑定fx，就不要绑定f了，想要f出效果，会等待一段时间 以确认用户不输入第二个字母
+" 绑定l， 就不要绑定lx， l会被暂存，下次与其它按键一起出来
 
 " ==== Plug config T =======================================
 " ==== junegunn/vim-plug ===============
@@ -388,9 +389,9 @@ nnoremap <Leader>a :A <CR>
 nnoremap <Leader>e :e<Space>
 
 " Ack搜索 不自动打开第一个文件
-nnoremap <Leader>fw :Ack! <Space>
+nnoremap <Leader>gw :Ack! <Space>
 " AckFile搜索 不自动打开第一个文件
-nnoremap <Leader>ff :AckFile!<Space>
+nnoremap <Leader>gf :AckFile!<Space>
 
 " ==== other map T =====================
 " 去除搜索高亮
@@ -443,15 +444,11 @@ nnoremap <Leader>j <C-W><C-J>
 " 窗口交换 针对sp分屏 依次向后
 nnoremap <Leader>r <ESC><C-W>r
 
-" 使用smoothie顺滑翻页
-" 使smmoothie可以绑定自己的快捷键
-let g:smoothie_no_default_mappings = 1
-nmap <Leader>f <Plug>(SmoothieForwards)
-nmap <Leader>b <Plug>(SmoothieBackwards)
-nmap <Leader>u <Plug>(SmoothieUpwards)
-nmap <Leader>d <Plug>(SmoothieDownwards)
-" nmap gg <Plug>(Smoothie_gg)    " 大文件太卡
-" nmap G  <Plug>(Smoothie_G)
+" 安装了smoothie顺滑插件，以下按键被自动顺滑
+nmap <Leader>f <C-f>
+nmap <Leader>b <C-b>
+nmap <Leader>u <C-u> 
+nmap <Leader>d <C-d>
 
 " ==== autocmd T ===========================================
 " 花括号自动格式化，首行一个tab
