@@ -414,8 +414,8 @@ vnoremap <C-c> :w! ~/tmp/clipboard.txt <CR>
 inoremap <C-v> <Esc>:r ~/tmp/clipboard.txt <CR>
 
 " 会话 记录当前vim所有状态
-nnoremap <Leader>[ :mksession! session.vim  <CR>
-nnoremap <Leader>] :source session.vim      <CR>   " 可在未进入vim时输入 vim -S session.vim
+nnoremap <Leader>[ :mksession! ~/.session.vim  <CR>
+nnoremap <Leader>] :source ~/.session.vim      <CR>   " 可在未进入vim时输入 vim -S session.vim
 
 " ==== taglist T (跳转) ================
 " taglist 查看符号列表
