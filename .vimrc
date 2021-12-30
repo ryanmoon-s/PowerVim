@@ -1,5 +1,20 @@
 " 定义快捷键前缀，即<Leader> 不要用在数字上
 let mapleader=";"
+" leader have been apply :
+" a
+" e
+" d u b f
+" h j k l
+" n m
+" v
+" ,
+" 1 2 3
+" q w Q
+" s
+" r
+" [ ]
+" gf gw
+" tg gt gr
 
 " ==== 主题 ================================================
 " 暗紫
@@ -24,6 +39,7 @@ colorscheme onedark
 " <Plug> 类型的不能加 nore 否则不起作用
 " 绑定fx，就不要绑定f了，想要f出效果，会等待一段时间 以确认用户不输入第二个字母
 " 绑定l， 就不要绑定lx， l会被暂存，下次与其它按键一起出来
+" 即 两个键的和一个键的不要重合
 
 " ==== Plug config T =======================================
 " ==== junegunn/vim-plug ===============
@@ -432,7 +448,7 @@ nnoremap <Leader>gr <C-T>
 " 高
 " nnoremap <Leader>1 <ESC><C-W>15+
 " 大
-nnoremap t <ESC><C-W>15>
+nnoremap 3 <ESC><C-W>15>
 
 " 窗口移动
 " h左 l右 k上 j下
