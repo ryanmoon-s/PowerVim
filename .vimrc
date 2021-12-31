@@ -65,15 +65,25 @@ Plug 'mileszs/ack.vim'
 " 基于ctag 用于跳转
 Plug 'preservim/tagbar'
 
-" 语法补全  sh ycm_install.sh
-Plug 'ryanmoon-s/YouCompleteMe'
+" 语法补全1 ycm 
+" 安装：sh ycm_install.sh
+" Plug 'ryanmoon-s/YouCompleteMe'
+" 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
+" Plug 'rdnetto/YCM-Generator'
 
-" LSC
-" Plug 'prabirshrestha/vim-lsp'
-" " 帮助安装LS  :LspInstallServer
-" Plug 'mattn/vim-lsp-settings'
-" " 异步补全
-" Plug 'prabirshrestha/asyncomplete.vim'
+" 语法补全2 coc
+" 1、需要先安装nodejs(coc 依赖)、clangd(作为language server) 都可以用包管理器安装
+" 2、配置json->       :CocConfig 输入下面的内容 解开注释
+"{
+""languageserver": {
+"      "clangd": {
+"      "command": "clangd",
+"      "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+"      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+"    }
+"  }
+"}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " 在头/源文件之间快速跳转
 Plug 'vim-scripts/a.vim'
@@ -93,9 +103,6 @@ Plug 'psliwka/vim-smoothie'
 " vim 主题 包含airline主题
 Plug 'morhetz/gruvbox', {'do': 'cp colors/gruvbox.vim ~/.vim/colors'}
 Plug 'joshdick/onedark.vim', {'do': 'cp colors/onedark.vim ~/.vim/colors \| cp autoload/onedark.vim ~/.vim/autoload'}
-
-" 帮助项目生成 .ycm_extra_conf.py，支持make cmake qmake autotools
-" Plug 'rdnetto/YCM-Generator'
 
 " 文字对齐
 " Plug 'godlygeek/tabular'
@@ -192,32 +199,7 @@ let g:ctrlp_max_depth = 10
 " 另外两个模式 :CtrlPBuffer(buffer) :CtrlPMRU(most recently used)
 " 可自行map
 
-" ==== al T =========================
-" let g:asyncomplete_auto_completeopt = 0
-" set completeopt=menuone,noinsert,noselect,preview
-
-" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
-
-" if executable('clangd')
-"     au User lsp_setup call lsp#register_server({
-"         \ 'name': 'clangd',
-"         \ 'cmd': {server_info->['clangd']},
-"         \ 'allowlist': ['cpp'],
-"         \ })
-" endif
-
-" function s:completor(opt, ctx)
-"   call mylanguage#get_async_completions({candidates, startcol -> asyncomplete#complete(a:opt['name'], a:ctx, startcol, candidates) })
-" endfunction
-
-" " 补全引擎
-" au User asyncomplete_setup call asyncomplete#register_source({
-"     \ 'name': 'mylanguage',
-"     \ 'allowlist': ['*'],
-"     \ 'completor': function('s:completor'),
-"     \ })
+" ==== coc T ========================
 
 " ==== ycm T ========================
 " 全局文件配置
@@ -475,7 +457,7 @@ autocmd FileType cpp set commentstring=//\ %s
 autocmd FileType vim set commentstring=\"\ %s
 autocmd FileType shell set commentstring=#\ %s
 
-" 编译
+" 编译 需要当前目录下有 .bin文件夹
 autocmd filetype python nnoremap <F1> :w <bar> exec '!python '.shellescape('%')<CR> autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ --std=c++11 -pthread '.shellescape('%').' -o ./bin/'.shellescape('%:r').' && ./bin/'.shellescape('%:r')<CR>
 
