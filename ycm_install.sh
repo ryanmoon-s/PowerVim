@@ -6,6 +6,8 @@
 #########################################################################
 #!/bin/bash
 
+# 安装YouCompleteMe的脚本 
+
 ycm_dir=".vim/plugged/YouCompleteMe"
 
 if [[ ! -d $ycm_dir ]]; then

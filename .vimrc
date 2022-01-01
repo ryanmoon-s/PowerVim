@@ -18,12 +18,12 @@ let mapleader=";"
 
 " ==== 主题 ================================================
 " 暗紫
-set background=dark
-colorscheme onedark
+" set background=dark
+" colorscheme onedark
 
 " 橙灰
-" set background=dark
-" colorscheme gruvbox
+set background=dark
+colorscheme gruvbox
 
 " ==== 教学 ================================================
 " ==== map =============================
@@ -72,17 +72,8 @@ Plug 'preservim/tagbar'
 " Plug 'rdnetto/YCM-Generator'
 
 " 语法补全2 coc
-" 1、需要先安装nodejs(coc 依赖)、clangd(作为language server) 都可以用包管理器安装
-" 2、配置json->       :CocConfig 输入下面的内容 解开注释
-"{
-""languageserver": {
-"      "clangd": {
-"      "command": "clangd",
-"      "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-"      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
-"    }
-"  }
-"}
+" 1、需要先安装nodejs(coc 依赖)、clangd(作为language server) 有些系统可以用包管理器安装
+" 2、运行sh ./coc.sh 安装这两个东西
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " 在头/源文件之间快速跳转
@@ -298,6 +289,8 @@ syntax enable
 syntax on
 " 不显示打开文件时的提示
 set shortmess=atI
+" 不显示底部的 --插入-- 等模式文字
+set noshowmode
 
 " 开启文件类型侦测
 filetype on
